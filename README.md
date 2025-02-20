@@ -50,7 +50,7 @@ This plugin relies on information provided by ChurchSuite relating to their JSON
 * Add a shortcode (see examples above) to your wordpress posts or pages where you need them
 
 # Usage
-* For the Event Cards shortcode, place the shortcode into a page or post or into a shortcode block.
+* For the *Event Cards shortcode*, place the shortcode into a page or post or into a shortcode block.
 The shortcode will be: `[cs-event-cards church_name="mychurch" num_results="3"]` (where `mychurch` is
 the name of your church and `3` is changed to the number of future featured events you need in a page
 or post.  Use the parameter `featured="1"` to obtain only featured events.  Because your calendar
@@ -58,11 +58,11 @@ will have _many_ events, make sure you include `num_results` to get the number o
 If you want events on a specific day, use the parameters `start-date` and `end-date`. If you want
 events from a particular Calendar category, use `category=1` where `1` is replaced by the category
 number for the Calendar category you want.
-* For the Event List shortcode, place the shortcode into a page or post or into a shortcode block.
+* For the *Event List shortcode*, place the shortcode into a page or post or into a shortcode block.
 The shortcode will be: `[cs-event-list church_name="mychurch" num_results="10"]`.  The comments above
 about parameters also apply to this shortcode.
-* For the Smallgroups shortcode, place the shortcode into a page or post or into a shortcode block.
-The shortcode will be: [cs-smallgroups church_name="mychurch"]' (where 'mychurch' is the name of your
+* For the *Smallgroups shortcode*, place the shortcode into a page or post or into a shortcode block.
+The shortcode will be: `[cs-smallgroups church_name="mychurch"]` (where `mychurch` is the name of your
 church.  The more limited set of parameters provided by ChurchSuite for small groups can all be used. 
 
 See https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md#calendar-json-feed
