@@ -42,9 +42,12 @@ This plugin relies on information provided by ChurchSuite relating to their JSON
 
 # Installation
 
-* Install the plugin through the admin page "Plugins" - Download the zip file to your computer, than use the Install New Plugin page to upload the zip file and install it.
-* Alternatively, unpack and upload the contents of the zipfile to your '/wp-content/plugins/' directory.
+* Download from 'releases'
+* Rename the zip file downloaded 'cs-integration.zip' (i.e. remove any version info in the name)
+* In Wordpress use the Install New Plugin page to upload the zip file.
+* Alternatively, unpack and upload the cs-integration directory to your '/wp-content/plugins/' directory.
 * Once you have done either of the above, Activate the plugin through the 'Plugins' menu in WordPress.
+* Add a shortcode (see examples above) to your wordpress posts or pages where you need them
 
 # Usage
 * For the Event Cards shortcode, place the shortcode into a page or post or into a shortcode block.
@@ -74,7 +77,16 @@ can be found at the license homepage or in the `cs-integration.php` file in the 
 
 # Frequently Asked Questions
 
-- How do I add my church so that I get the JSON feed for my church
+- The shortcode produces no output
+
+The default behaviour when there is an error is to give no output rather than produce error messages
+all over your website.  Check that you have supplied the correct churchname, or test it with the
+churchname 'cambray' to see if that is the problem.  Check that you can actually get to your
+ChurchSuite JSON api url - try entering the following URL in a browser with your church name instead
+of `mychurch:
+`https://mychurch.churchsuite.com/embed/calendar/json?num_results=3`
+
+- How do I add my church so that I get the JSON feed for my church?
 
 You must use the shortcode `church_name` parameter:
 
@@ -100,7 +112,7 @@ None as yet
 
 ## 1.0.0
 **2025-02-20**
-* Added caching of responses
+* Added caching of responses and displaying cancelled events in the event list correctly
 
 **2025-02-18**
 * All files changes to ensure all code was according to the Wordpress Style Guide
