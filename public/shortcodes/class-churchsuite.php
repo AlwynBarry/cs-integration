@@ -163,7 +163,6 @@ final class ChurchSuite {
 	 * @since 1.0.0
 	 * @return string	the base JSON API url for the group feed, regardless of what feed was originally requested
 	 */
-	 */
 	public function get_groups_JSON_URL() : string {
  		return $this->get_churchsuite_URL() . ChurchSuite::BASE_JSON_URLS[ ChurchSuite::GROUPS ];
 	}
