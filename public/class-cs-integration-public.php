@@ -44,7 +44,7 @@ class Cs_Integration_Public {
 	private $version;
 
 	/**
-	 * The Class Names of the classes for communication to the ChurchSuite JSON API,
+	 * The Class Names and file names of the classes for communication to the ChurchSuite JSON API,
 	 * - the model classes for the data returned in the JSON responses,
 	 * - the view classes for display of the data,
 	 * - the classes which give the behaviour of the shortcodes,
