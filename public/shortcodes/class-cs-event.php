@@ -26,10 +26,10 @@ class Cs_Event extends Cs_Item {
     public function __construct( \stdclass $event_obj ) {
 		parent::__construct( $event_obj );
 		if ( is_object( $event_obj ) ) {
-			$this->start_date = $this->fetch_start_date( $event_obj );
-			$this->end_date = $this->fetch_end_date( $event_obj );
-			$this->address = $this->fetch_address( $event_obj );
-			$this->status = $this->fetch_status( $event_obj );
+			$this->start_date = $this->sanitize_start_date( $event_obj );
+			$this->end_date = $this->sanitize_end_date( $event_obj );
+			$this->address = $this->sanitize_address( $event_obj );
+			$this->status = $this->sanitize_status( $event_obj );
 		} else {
 			$this->start_date = null;
 			$this->end_date = null;
@@ -51,8 +51,8 @@ class Cs_Event extends Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 * Developer Note: Override this function if the start date is in a different place or has a different name in the new object
 	 */
-	protected function fetch_start_date( \stdclass $event_obj ) : \DateTime {
-		return ( property_exists( $event_obj,'datetime_start' ) && ( ! is_null($event_obj->datetime_start ) ) )
+	protected function sanitize_start_date( \stdclass $event_obj ) : \DateTime {
+		return ( isset( $event_obj->datetime_start ) )
 					? date_create( $event_obj->datetime_start )
 					: null;
 	}
@@ -62,8 +62,8 @@ class Cs_Event extends Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 * Developer Note: Override this function if the end date is in a different place or has a different name in the new object
 	 */
-	protected function fetch_end_date( \stdclass $event_obj) : \DateTime {
-		return ( property_exists( $event_obj,'datetime_end' ) && (! is_null( $event_obj->datetime_end )) ) 
+	protected function sanitize_end_date( \stdclass $event_obj) : \DateTime {
+		return ( isset( $event_obj->datetime_end ) ) 
 					? date_create( $event_obj->datetime_end )
 					: null;
 	}
@@ -73,9 +73,8 @@ class Cs_Event extends Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 * Developer Note: Override this function if the location name is in a different place in the new object
 	 */
-	protected function fetch_address( \stdclass $event_obj ) : string {
-		return ( property_exists( $event_obj, 'location' ) && (! is_null( $event_obj->location )) &&
-				 property_exists( $event_obj->location, 'address' ) && ( ! is_null( $event_obj->location->address ) ) ) 
+	protected function sanitize_address( \stdclass $event_obj ) : string {
+		return ( isset( $event_obj->location->address ) ) 
 					? htmlspecialchars( $event_obj->location->address )
 					: '';
 	}
@@ -84,10 +83,10 @@ class Cs_Event extends Cs_Item {
 	 * Return the event status from the JSON event object, or 'confirmed' if the status is missing or malformed
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 */
-	protected function fetch_status( \stdclass $event_obj ) : string {
+	protected function sanitize_status( \stdclass $event_obj ) : string {
 		// Default is 'confirmed' even if the data in the object is malformed
 		$result = \amb_dev\CSI\Cs_Event::EVENT_STATUS[0];
-		if ( property_exists( $event_obj, 'status' ) && (! is_null( $event_obj->status )) ) {
+		if ( isset( $event_obj->status ) ) {
 			$result = strtolower( $event_obj->status );
 			$result = ( in_array( $result, \amb_dev\CSI\Cs_Event::EVENT_STATUS ) ) ? $result : \amb_dev\CSI\Cs_Event::EVENT_STATUS[0];
 		}

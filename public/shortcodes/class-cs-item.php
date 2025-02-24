@@ -20,12 +20,19 @@ abstract class Cs_Item {
      */
     public function __construct( \stdclass $JSON_obj ) {
 		if ( is_object( $JSON_obj ) ) {
-			$this->identifier = $this->fetch_identifier( $JSON_obj );
-			$this->name = $this->fetch_name( $JSON_obj );
-			$this->image_URL = $this->fetch_image_URL( $JSON_obj );
-			$this->location = $this->fetch_location( $JSON_obj );
-			$this->description = $this->fetch_description( $JSON_obj );
+			$this->identifier = $this->sanitize_identifier( $JSON_obj );
+			$this->name = $this->sanitize_name( $JSON_obj );
+			$this->image_URL = $this->sanitize_image_URL( $JSON_obj );
+			$this->location = $this->sanitize_location( $JSON_obj );
+			$this->description = $this->sanitize_description( $JSON_obj );
+		} else {
+			$this->identifier = '';
+			$this->name = 'Unnamed';
+			$this->image_URL = '';
+			$this->location = '';
+			$this->description = '';
 		}
+
 	}
 	
 	/*
@@ -40,8 +47,8 @@ abstract class Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 * Developer Note: Override this function if the identifier is in a different place in the new object
 	 */
-	protected function fetch_identifier( \stdclass $item_obj ) : string {
-		return ( property_exists( $item_obj,'identifier' ) && ( ! is_null( $item_obj->identifier ) ) )
+	protected function sanitize_identifier( \stdclass $item_obj ) : string {
+		return ( isset( $item_obj->identifier ) )
 					? preg_replace( '/[^a-zA-Z0-9]+/', '', $item_obj->identifier )
 					: '' ;
 	}
@@ -51,9 +58,9 @@ abstract class Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 * Developer Note: Override this function if the identifier is in a different place in the new object
 	 */
-	protected function fetch_name( \stdclass $item_obj ) : string {
-		return ( property_exists( $item_obj,'name' ) && ( ! is_null($item_obj->name) ) && ( $item_obj->name != '' ) ) 
-					? htmlspecialchars($item_obj->name)
+	protected function sanitize_name( \stdclass $item_obj ) : string {
+		return ( isset( $item_obj->name ) && ( $item_obj->name !== '' ) ) 
+					? htmlspecialchars( $item_obj->name )
 					: 'Unnamed';
 	}
 
@@ -62,15 +69,12 @@ abstract class Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 * Developer Note: Override this function if the image URL is in a different place in the new object
 	 */
-	protected function fetch_image_URL( \stdclass $item_obj ) : string {
+	protected function sanitize_image_URL( \stdclass $item_obj ) : string {
 		$result = '';
 		// Check for a valid image URL ('images' will be null or an empty array if invalid
-		if ( property_exists( $item_obj, 'images' ) && ( ! is_null( $item_obj->images ) ) && ( ! is_array($item_obj->images) )
-				&& property_exists( $item_obj->images, 'lg' ) && ( ! is_null( $item_obj->images->lg ) )
-				&& property_exists( $item_obj->images->lg, 'url' ) && ( ! is_null ( $item_obj->images->lg->url ) )
-				&& ( $item_obj->images->lg->url !== '' ) ) {
+		if ( isset( $item_obj->images->lg->url ) && ( $item_obj->images->lg->url !== '' ) ) {
 			$url = $item_obj->images->lg->url;
-			if ( filter_var($url, FILTER_VALIDATE_URL) ) { $result = '<img src="'. $url . '">'; }
+			if ( filter_var( $url, FILTER_VALIDATE_URL ) ) { $result = '<img src="'. $url . '">'; }
 		}
 		return $result;
 	}
@@ -80,9 +84,8 @@ abstract class Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 * Developer Note: Override this function if the location name is in a different place in the new object
 	 */
-	protected function fetch_location( \stdclass $item_obj ) : string {
-		return ( property_exists( $item_obj, 'location' ) && ( ! is_null($item_obj->location ) ) &&
-				 property_exists( $item_obj->location, 'name' ) && ( ! is_null( $item_obj->location->name ) ) ) 
+	protected function sanitize_location( \stdclass $item_obj ) : string {
+		return ( isset( $item_obj->location->name ) ) 
 					? htmlspecialchars( $item_obj->location->name )
 					: '' ;
 	}
@@ -92,8 +95,8 @@ abstract class Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 * Developer Note: Override this function if the description is in a different place in the new object
 	 */
-	protected function fetch_description( \stdclass $item_obj ) : string {
-		return ( property_exists( $item_obj, 'description' ) && ( ! is_null( $item_obj->description ) ) && ( $item_obj->description !== '' ) )
+	protected function sanitize_description( \stdclass $item_obj ) : string {
+		return ( isset( $item_obj->description ) && ( $item_obj->description !== '' ) )
 					? wp_kses( nl2br( trim( $item_obj->description ) ), self::VALID_DESCRIPTION_HTML )
 					: '' ;
 	}

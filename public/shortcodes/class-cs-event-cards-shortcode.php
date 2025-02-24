@@ -31,8 +31,12 @@ class Cs_Event_Cards_Shortcode extends Cs_Shortcode {
 		if ( ! is_null( $this->JSON_response ) ) {
 			$output = '<div class="cs-event-cards cs-row">' . "\n";
 			foreach ( $this->JSON_response as $event_obj ) {
-			    $event_view = new Cs_Event_Card_View( $this->cs, new Cs_Event( $event_obj ) );
+				$event = new Cs_Event( $event_obj );
+			    $event_view = new Cs_Event_Card_View( $this->cs, $event );
 				$output .= $event_view->display();
+				// clear the event and view objects as we go so that we keep memory usage low
+				unset( $event_view );
+				unset( $event );
 			}
 			$output .= '</div>' . "\n";
 		}

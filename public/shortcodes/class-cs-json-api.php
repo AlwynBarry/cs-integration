@@ -11,7 +11,7 @@ class Cs_JSON_API {
     /*
      * See https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md#calendar-json-feed for an explanation of these params
      */
-	protected const PERMITTED_PARAMS = array('merge','date_start','date_end','featured','category','categories','site','sites','event','events','q','embed_signup','public_signup','sequence','page');
+	protected const PERMITTED_PARAMS = array( 'merge','date_start','date_end','featured','category','categories','site','sites','event','events','q','embed_signup','public_signup','sequence','page' );
 
 	protected ChurchSuite $churchsuite;
     protected int $num_results = 0;

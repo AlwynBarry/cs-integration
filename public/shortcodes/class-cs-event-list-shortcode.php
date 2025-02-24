@@ -67,6 +67,9 @@ class Cs_Event_List_Shortcode extends Cs_Shortcode {
 				$output .= $event_view->display();
 				$output .= '  </div>' . "\n";
 				$output .= '</div>' . "\n";
+				// clear the event and view objects as we go so that we keep memory usage low
+				unset( $event_view );
+				unset( $event );
 			}
 			$output .= '</div>';
 		}

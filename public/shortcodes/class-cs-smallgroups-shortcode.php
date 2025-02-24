@@ -31,8 +31,12 @@ class CS_Smallgroups_Shortcode extends Cs_Shortcode {
 		if ( ! is_null( $this->JSON_response ) ) {
 			$output = '<div class="cs-smallgroups cs-row">' . "\n";
 			foreach ( $this->JSON_response as $group_obj ) {
-			    $group_view = new Cs_Group_View( $this->cs, new Cs_Group( $group_obj ) );
+				$group = new Cs_Group( $group_obj );
+			    $group_view = new Cs_Group_View( $this->cs, $group );
 				$output .= $group_view->display();
+				// clear the group and view objects as we go so that we keep memory usage low
+				unset( $group_view );
+				unset( $group );
 			}
 			$output .= '</div>' . "\n";
 		}

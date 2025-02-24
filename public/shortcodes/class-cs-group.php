@@ -52,7 +52,7 @@ class Cs_Group extends Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 */
 	protected function fetch_frequency( \stdclass $group_obj ) : string {
-		return ( property_exists( $group_obj, 'frequency' ) && ( ! is_null( $group_obj->frequency ) ) )
+		return ( isset( $group_obj->frequency ) )
 					? htmlspecialchars( $group_obj->frequency )
 					: '' ;
 	}
@@ -63,7 +63,7 @@ class Cs_Group extends Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 */
 	protected function fetch_custom_frequency( \stdclass $group_obj ) : string {
-		return ( property_exists( $group_obj, 'custom_frequency' ) && ( ! is_null( $group_obj->custom_frequency ) ) )
+		return ( isset( $group_obj->custom_frequency ) )
 						? htmlspecialchars( $group_obj->custom_frequency )
 						: '' ;
 	}
@@ -75,7 +75,7 @@ class Cs_Group extends Cs_Item {
 	 */
 	protected function fetch_day_of_week( \stdclass $group_obj ) : string {
 		$output = '';
-		if ( property_exists( $group_obj, 'day' ) && ( ! is_null( $group_obj->day ) ) && is_numeric( $group_obj->day ) ) {
+		if ( isset( $group_obj->day ) && is_numeric( $group_obj->day ) ) {
 			$day_of_week_numeric = (int) $group_obj->day;
 			if ( ( $day_of_week_numeric >= 0 ) && ( $day_of_week_numeric <= 6 ) ) {
 				$output .= " on " . $dow_text = date( 'l', strtotime( "Sunday +{$day_of_week_numeric} days" ) );
@@ -90,7 +90,7 @@ class Cs_Group extends Cs_Item {
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 */
 	protected function fetch_time_of_meeting( \stdclass $group_obj ) : string {
-        return ( property_exists( $group_obj, 'time' ) && ( ! is_null( $group_obj->time ) ) && ( $group_obj->time !== '' ) )
+        return ( isset( $group_obj->time ) && ( $group_obj->time !== '' ) )
 			? date_format( date_create( $group_obj->time ), 'g:ia' )
             : '' ;
     }
