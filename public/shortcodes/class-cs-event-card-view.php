@@ -12,10 +12,41 @@ use amb_dev\CSI\Cs_View as Cs_View;
 use amb_dev\CSI\Cs_Event as Cs_Event;
 
 
-Class Cs_Event_Card_View extends Cs_View  {
+/**
+ * Provides a card-based view on a ChurchSuite Event.
+ * The card has an image section and a details section, with the details
+ * being the name of the event (potentially with a link to that event on ChurchSuite).
+ * the date and time of the event (potentially also with an end time and date),
+ * and the location name and address.  The description for the event is omitted.
+ * All these details are placed within a div that can be styled, and each
+ * of the elements can also be styled.
+ * 
+ * @link       https://https://github.com/AlwynBarry
+ * @since      1.0.0
+ *
+ * @package    Cs_Integration
+ * @subpackage Cs_Integration/public/shortcodes
+ * @author     Alwyn Barry <alwyn_barry@yahoo.co.uk>
+ */
+ Class Cs_Event_Card_View extends Cs_View  {
 
+	/*
+	 * The event to be displayed, set via the constructor
+	 * @since 1.0.0
+	 * @access	protected
+	 * @var		Cs_Event $cs_event	The instance of Cs_Event to be displayed
+	 */
 	protected Cs_Event $cs_event;
 
+    /*
+     * Store the data to be displayed later - the reference to ChurchSuite so we
+     * can get the URLs needed for links, and the Event data to be displayed.
+     * NOTE: All data in these instances has been sanitized when set and is stored readonly
+	 *
+ 	 * @since	1.0.0
+	 * @param	ChurchSuite $cs			the ChurchSuite object from which we can get URL references
+	 * @param	Cs_Event	$cs_event	the Event object which is to be displayed
+    */
 	public function __construct( ChurchSuite $cs, Cs_Event $cs_event ) {
 		parent::__construct( $cs );
 		$this->cs_event = $cs_event;
@@ -23,23 +54,31 @@ Class Cs_Event_Card_View extends Cs_View  {
 
 	/*
 	 * Return a string of HTML output representing a single event.
-	 * All data in the $event instance is sanitized on creation and the Cs_Event class doesn't permit unsanitized data to be held
+	 * NOTE: All data to be output has been sanitized when set and is stored readonly
+	 * 
+	 * @since 1.0.0
+	 * @returns	string	The valid HTML to display a ChurchSuite Cs_Event instance
 	 */
 	public function display() : string {
-        $output = '<div class="cs-card cs-featured">' . "\n";
+		// Display the card
+        $output = '<div class="cs-card cs-event-card cs-event-status-' . $this->cs_event->get_status() . '">' . "\n";
 
-		$output .= '  <div class="cs-featured-image-area">' . "\n";
+		// Display the image area
+		$output .= '  <div class="cs-event-card-image-area">' . "\n";
 		$output .= '    ' . $this->cs_event->get_image_URL() . "\n";
 		$output .= '  </div>' . "\n";
 		
-        $output .= '  <div class="cs-featured-details-area">' . "\n";
+		// Display the details area
+        $output .= '  <div class="cs-event-card-details-area">' . "\n";
 
+		// Display the event name in a link if a link is provided
 		$output .= '<h3>' .
 					( ( $this->cs_event->is_URL() ) ? '<a href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
 					$this->cs_event->get_name() .
 					( ( $this->cs_event->is_URL() ) ? '</a>' : '' ) .
 					'</h3>' . "\n";
 	
+		// Display the start and end times where they are provided
         if ( $this->cs_event->is_start_date() ) {
             $output .= '    <div class="cs-calendar"><span>' . date_format( $this->cs_event->get_start_date(),'M jS, Y' ) . '</span></div>' . "\n";
             $output .= '    <div class="cs-time"><span>' . date_format( $this->cs_event->get_start_date(), 'g:ia' );
@@ -47,10 +86,14 @@ Class Cs_Event_Card_View extends Cs_View  {
 			$output .= '</span></div>' . "\n";
         }
 
+		// Display the location and address if they have been provided
         $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span>' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
         $output .= ( $this->cs_event->is_address() ) ? '    <p class="cs-address">' . $this->cs_event->get_address() . '</p>' . "\n" :  '';
 
+		// Close the details area
         $output .= '  </div>' . "\n";
+        
+        // Close the card
         $output .= '</div>' . "\n";
 
 		return $output;

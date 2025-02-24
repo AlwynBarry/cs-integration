@@ -25,7 +25,7 @@ div.cs-smallgroup {
 	overflow: hidden;
 }
 
-div.cs-featured,
+div.cs-event-card,
 div.cs-smallgroup {
 	/* Default width provides the right card size ... height is dependent on content */
 	width: 330px;
@@ -41,7 +41,7 @@ div.cs-smallgroup {
 }
 
 div.cs-smallgroup-image-area,
-div.cs-featured-image-area {
+div.cs-event-card-image-area {
 	background-image: url("https://www.cambray.org/mp3_sermons/2022/01/cambray-front-sky-CBC-1024x576-1.jpg");
 	background-size: cover;
 	height: 186px;
@@ -57,14 +57,14 @@ div.cs-smallgroup-image-area img {
 	object-fit: cover;
 }
 
-div.cs-featured-image-area img {
+div.cs-event-card-image-area img {
 	height: 186px;
 	width: 330px;
 	object-fit: cover;
 }
 
 div.cs-smallgroup-details-area,
-div.cs-featured-details-area {
+div.cs-event-card-details-area {
 	/* Add some padding around the internal text */
 	padding: 1rem 1rem;
 }
