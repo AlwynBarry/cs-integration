@@ -100,7 +100,7 @@ abstract class Cs_Shortcode {
 	 * that this function has to provide very little new HTML which merely wraps the
 	 * events or groups for output.
 	 * 
- 	 * @since	1.0.0
+ 	 * @since	1.0.1
  	 * @param	string	$JSON_response	the array of \stdclass objects from the JSON response
  	 * 									from which the HTML will be created for the shortcode response.
 	 * @return	string 					The string with the HTML of the shortcode response, or '' if an error
@@ -114,7 +114,7 @@ abstract class Cs_Shortcode {
 	 *     (the JSON response my be from the cache, if a previous call has been cached).
 	 * If there is a JSON response, call $this->get_response() to convert it into HTML.
 	 * 
-  	 * @since	1.0.0
+  	 * @since	1.0.1
 	 * @return	string	a string with the HTML of the ChurchSuite JSON response or a message to try later if an error
 	 */
 	public function run_shortcode() : string {

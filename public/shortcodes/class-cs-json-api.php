@@ -32,7 +32,7 @@ class Cs_JSON_API {
 
    /*
      * The default cache time for previous returned results
-	 * @since	1.0.0
+	 * @since	1.0.1
 	 * @access	protected
 	 * @const	CACHE_TIME	the preset cache time before a cached result is expired
 	 */
@@ -131,7 +131,7 @@ class Cs_JSON_API {
 	 * api url. Thus the key will correspond to the same data being returned for the same
 	 * request when if is used again.
 	 * 
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 * @param 	$api_url	The URL that will be used to obtain the ChurchSuite JSON response
 	 * @return	string		A transient key uniquely reflecting this plugin and the JSON URL used
 	 */
@@ -144,7 +144,7 @@ class Cs_JSON_API {
      * Note: if the church_name given to the ChurchSuite instance was not given correctly
      * 		 or if it was an empty string the eventual JSON call will return a null result.
 	 * 
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 * @return null or an array of \stdclass
 	 */ 
 	public function get_response() {

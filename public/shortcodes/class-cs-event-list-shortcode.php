@@ -75,7 +75,7 @@ class Cs_Event_List_Shortcode extends Cs_Shortcode {
 	 * For each date there is only one date output in a left hand column, styled, and then
 	 * in the corresponding right hand columns we have each event on that date.
 	 * 
-	 * @since	1.0.0
+	 * @since	1.0.1
 	 * @param	string	$JSON_response	the array of \stdclass objects from the JSON response
  	 * 									from which the HTML will be created for the shortcode response.
 	 * @return	string					the HTML to render the events in cards, or '' if the JSON response fails
@@ -135,7 +135,7 @@ class Cs_Event_List_Shortcode extends Cs_Shortcode {
  */
 function cs_event_list_shortcode( $atts ) {
 	// Defaulting the end date to anything decreases the JSON request time considerably
-    $atts[ 'date_end' ] ??= date("Y-m-d", strtotime("+31 day"));
+    $atts[ 'date_end' ] ??= date("Y-m-d", strtotime("+5 day"));
 	return ( new Cs_Event_List_Shortcode( $atts ) )->run_shortcode();
 }
 	

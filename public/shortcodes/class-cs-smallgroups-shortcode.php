@@ -57,7 +57,7 @@ class CS_Smallgroups_Shortcode extends Cs_Shortcode {
 	 *
 	 * For each small group we return what the CS_Group_View returns, all within a flex div.
 	 * 
- 	 * @since	1.0.0
+ 	 * @since	1.0.1
  	 * @param	string	$JSON_response	the array of \stdclass objects from the JSON response
  	 * 									from which the HTML will be created for the shortcode response.
 	 * @return	string					the HTML to render the group list, or '' if the JSON response fails

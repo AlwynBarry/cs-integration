@@ -63,7 +63,7 @@ use amb_dev\CSI\Cs_Event_Card_View as Cs_Event_Card_View;
 	 * 
 	 * For each event we return what the Cs_Event_Card returns, all within a flex div.
 	 * 
- 	 * @since	1.0.0
+ 	 * @since	1.0.1
  	 * @param	string	$JSON_response	the array of \stdclass objects from the JSON response
  	 * 									from which the HTML will be created for the shortcode response.
 	 * @return	string					the HTML to render the events in cards, or '' if the JSON response fails

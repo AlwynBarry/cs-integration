@@ -1,9 +1,9 @@
 # CS Integration
 Contributors: Alwyn Barry
 Tags: Events, ChurchSuite, Featured
-Requires at least: 4.1
-Tested up to: 6.3.1
-Stable tag: 1.0.0
+Requires at least: 6.4
+Tested up to: 6.7.2
+Stable tag: 1.0.1
 License: GPLv2 or later
 
 CS Integration is a plugin to enable display of data from ChurchSuite JSON feeds
@@ -20,7 +20,7 @@ request.
 * Shortcode to return events as 'cards' with the event image and details
 * Shortcode to return events in a 'list' group by date
 * Shortcode to return groups as 'cards' with the group image and details
-* All API requests are cached with a 1 hour cache to ensure fast performance 
+* All API requests are cached with a 4 hour cache to ensure fast performance 
 
 
 ## Support
@@ -55,12 +55,13 @@ The shortcode will be: `[cs-event-cards church_name="mychurch" num_results="3"]`
 the name of your church and `3` is changed to the number of future featured events you need in a page
 or post.  Use the parameter `featured="1"` to obtain only featured events.  Because your calendar
 will have _many_ events, make sure you include `num_results` to get the number of events you want.
-If you want events on a specific day, use the parameters `start-date` and `end-date`. If you want
+If you want events on a specific day, use the parameters `date_start` and `date_end`. If you want
 events from a particular Calendar category, use `category=1` where `1` is replaced by the category
 number for the Calendar category you want.
 * For the *Event List shortcode*, place the shortcode into a page or post or into a shortcode block.
 The shortcode will be: `[cs-event-list church_name="mychurch" num_results="10"]`.  The comments above
-about parameters also apply to this shortcode.
+about parameters also apply to this shortcode.  By default only a maximum of 5 days events are returned,
+but this can be overridden by adding the `date_end` parameter.
 * For the *Smallgroups shortcode*, place the shortcode into a page or post or into a shortcode block.
 The shortcode will be: `[cs-smallgroups church_name="mychurch"]` (where `mychurch` is the name of your
 church.  The more limited set of parameters provided by ChurchSuite for small groups can all be used. 
@@ -109,6 +110,15 @@ None as yet
 
 
 # Changelog
+
+## 1.0.1
+**2025-02-25**
+* Changed caching to cache API responses rather than the final HTMl, for security reasons
+* Found that num_results alone causes a 8sec response time, but adding a date_end reduces the
+  API response time to 1.5s regardless of the amount of events returned.  So defaulted the
+  cs-events-list to 5 days just to get reasonable response time. 
+* Added basic i18n support
+* Changed all files to reflect 1.0.1 release status
 
 ## 1.0.0
 **2025-02-20**
