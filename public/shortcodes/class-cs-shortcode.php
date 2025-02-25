@@ -29,11 +29,10 @@ use amb_dev\CSI\Cs_JSON_API as Cs_JSON_API;
  * Event or Group classes the model and the EventView/GroupView etc classes the View.
  * 
  * To create a shortcode, extend this class and provide a get_response() function.
- * The get_response() function should firstly call $this->get_JSON_response() to
- * get the JSON data, and output the container HTML and with the container HTML
- * it should iterate over the response array of objects, using a View class to
- * output each object.  run_shortcode() will dispatch to get_response() if there is
- * no cache to re-use, and will update the cache to the new response if needed.
+ * The get_response() function should output the container HTML and then iterate
+ * the objects in the $JSON_response parameter parameter, using a View class to
+ * output each object.  run_shortcode() will dispatch to get_response() with the
+ * JSON response either ChurchSuite or from cache.
  *
  * @link       https://https://github.com/AlwynBarry
  * @since      1.0.0
@@ -47,29 +46,16 @@ abstract class Cs_Shortcode {
     // Note - we keep these separate from the CSJsonApi acceptable keys so that we don't need to define defaults for all possible attributes 
     protected const DEFAULT_ATTS = array( 'num_results' => 0, 'church_name' => '', 'featured' => 0, 'merge' => 'sequence' );
     
-    /*
-     * The default cache time for previous returned results
-	 * @since	1.0.0
-	 * @access	protected
-	 * @const	CACHE_TIME	the preset cache time before a cached result is expired
-	 */
-    protected const CACHE_TIME = 1 * HOUR_IN_SECONDS;
-
-	/**
+ 	/**
 	 * The common attributes needed to provide any shortcode created by this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
 	 * @var      ChurchSuite    $cs				holds the constructed urls to the ChurchSuite account for the JSON feed
 	 * @var      Cs_JSON_API	$api			holds the params needed to construct the JSON API call; manages the API call
-	 * @var      array()		$JSON_response	Array of \stdclass objects representing events or groups returned by ChurchSuite
-	 * @var      string    		$transient_key	A key to uniquely represent the HTML returned for the JSON response requested
-	 * 											Used to identify the cached response for each past call based on its params
 	 */
 	protected ChurchSuite $cs;
 	protected Cs_JSON_API $api;
-	protected $JSON_response = null;
-	protected string $transient_key = '';
 	
 	
 	/*
@@ -78,7 +64,7 @@ abstract class Cs_Shortcode {
 	 * that JSON feed.  Also, create the unique cache key appropriate for this query.
 	 * 
 	 * NOTE: The constructor does NOT get the JSON response so that we can get a previous
-	 *       HTML output from cache if one already exists so we can mitigate any possible
+	 *       JSON response from cache if one already exists so we can mitigate any possible
 	 * 		 delay for the JSON response and the processing of that response.
 	 * 
 	 *
@@ -103,68 +89,45 @@ abstract class Cs_Shortcode {
 		// Create the churchsuite JSON URL and get the JSON response
 		$this->cs = new ChurchSuite( $church_name, $JSON_base );
 		$this->api = new Cs_JSON_API( $this->cs, $num_results, $atts );
-		
-		// Set the transient key to use when we want a shortcode to cache the HTML response
-		$this->transient_key = ( $this->api )->get_transient_key( $this, ( $this->cs )->get_JSON_base() );
-	}
-
-	/*
-	 * The constructor does NOT get the JSON response so that we can get a response from
-	 * cache if one already exists.  This function checks if we have a response already, and
-	 * if there is no already fetched JSON response we call the API to get a JSON response,
-	 * setting the JSON_response property with the response, ready for later processing.
-	 * 
-	 * This should be called from within your get_response() function.
-	 *
- 	 * @since	1.0.0
-	 */
-	protected function get_JSON_response() : void {
-		if ( is_null( $this->JSON_response ) ) {
-			$this->JSON_response = ( $this->api )->get_response();
-		}
 	}
 
 	/*
 	 * This is the function the child class must implement that will return the HTML
 	 * response from the JSON ChurchSuite response.
-	 * It should first call $this->get_JSON_response() to fetch the JSON response
-	 * and then iterate over the objects of this response to generate the required HTML,
-	 * using View instances so that this function has to provide very little new HTML
-	 * which merely wraps the events or groups for output.
+	 * 
+	 * It should output any container HTML required, and then iterate over the objects
+	 * of the JSON response to generate the required HTML, using View instances so
+	 * that this function has to provide very little new HTML which merely wraps the
+	 * events or groups for output.
 	 * 
  	 * @since	1.0.0
-	 * @return	string 	The string with the HTML of the shortcode response, or '' if an error
+ 	 * @param	string	$JSON_response	the array of \stdclass objects from the JSON response
+ 	 * 									from which the HTML will be created for the shortcode response.
+	 * @return	string 					The string with the HTML of the shortcode response, or '' if an error
 	 */
-	protected abstract function get_response() : string;
+	protected abstract function get_HTML_response( array $JSON_response ) : string;
 	
 	/*
 	 * Run the shortcode to produce the HTML output
 	 * 
-	 * First we check the cache.
-	 * If there is a cached HTML response to an earlier query, return it.
-	 * If there is no cached response:
-	 * 		Call through to get_response using get_response()
-	 * 			In get_response() we expect it to get a response from the JSON API, use
-	 * 				that to form a new HTML response string for display of the items returned.
-	 * 		Add the HTML response string to the cache for later re-use
-	 * Finally, we return the HTML response string for Wordpress to display.
+	 * Call the JSON API to get an array of \stdclass objects from the ChurchSuite JSON response
+	 *     (the JSON response my be from the cache, if a previous call has been cached).
+	 * If there is a JSON response, call $this->get_response() to convert it into HTML.
 	 * 
   	 * @since	1.0.0
-	 * @return: a string with the HTML of the shortcode response or '' if an error
+	 * @return	string	a string with the HTML of the ChurchSuite JSON response or a message to try later if an error
 	 */
 	public function run_shortcode() : string {
-		// Check if we have a cached response - if not, get a new response and then cache it before returning
-		if ( false === ( $response = get_transient( $this->transient_key ) ) ) { 
-			// Create a new response - this dispatches to the shortcode subclass
-			$output = $this->get_response();
-			// Put the response into the cache
-			if ( $output !== '' ) { set_transient( $this->transient_key, $output, Cs_Shortcode::CACHE_TIME ); }
-			if ( $output === '' ) { $output = '<div>Please try again later for this information</div>'; }
-			return $output;
-		} else {
-		    // return the cached response
-			return $response;
+		$output = '';
+		// Fetch the \stclass object array into our $JSON_response variable
+		$JSON_response = ( $this->api )->get_response();
+		if ( ! is_null( $JSON_response ) ) {
+			// Sanitize the input by converting the object array into Cs_Event or Cs_Group objects
+			// and, for each one, convert into HTML output using an appropriate Cs_View class
+			$output = $this->get_HTML_response( $JSON_response );
 		}
+		if ( $output === '' ) { $output = '<div class="cs-warning">' . __( 'Please try again later for this information', 'cs-integration' ) . '</div>'; }
+		return $output;
 	}
 
 }

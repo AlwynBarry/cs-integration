@@ -30,6 +30,14 @@ class Cs_JSON_API {
      */
 	protected const PERMITTED_PARAMS = array( 'merge','date_start','date_end','featured','category','categories','site','sites','event','events','q','embed_signup','public_signup','sequence','page' );
 
+   /*
+     * The default cache time for previous returned results
+	 * @since	1.0.0
+	 * @access	protected
+	 * @const	CACHE_TIME	the preset cache time before a cached result is expired
+	 */
+    protected const CACHE_TIME = 4 * HOUR_IN_SECONDS;
+
 	/*
 	 * The data required from which the feed URL is created
 	 * 
@@ -109,7 +117,7 @@ class Cs_JSON_API {
 	 * 					Note: never Null because there should always be a valid string,
 	 * 						  though the church_name supplied to the $cs instance may have been incorrect
 	 */ 
-	private function compose_API_URL() : string {
+	protected function compose_API_URL() : string {
 		$url = ( $this->churchsuite )->get_JSON_URL() . '?num_results=' . $this->num_results;
 		foreach ( $this->params as $key => $value ) { $url .= '&' . $key . '=' . $value; }
 		return $url;
@@ -119,28 +127,16 @@ class Cs_JSON_API {
 	 * Return a string that can be used as a key for transients
 	 * 
 	 * The key name returned is the name of the plugin preceding a sha1 encoding which
-	 * uniquely identifies the JSON request. The sha1 encoding is calculated from the
-	 * class of the calling object, the api string being used, and the param keys and
-	 * values with special characters and spaces removed. Thus the key will correspond
-	 * to the same data being returned for the same request from that object if it were
-	 * called again - i.e. we can rely on the cached copy being what would be received anew.
+	 * uniquely identifies the JSON api request. The sha1 encoding is calculated from the
+	 * api url. Thus the key will correspond to the same data being returned for the same
+	 * request when if is used again.
 	 * 
 	 * @since 1.0.0
-	 * @param $obj		The calling object so we can add its class name to the transient key - usually $this
-	 * @param $name		The called API - one of ChurchSuite::BASE_ITEM_URLS
-	 * @return	string	A transient key uniquely reflecting the supplied params and API feed requested
+	 * @param 	$api_url	The URL that will be used to obtain the ChurchSuite JSON response
+	 * @return	string		A transient key uniquely reflecting this plugin and the JSON URL used
 	 */
-	public function get_transient_key( $obj, string $apiName ) : string {
-		// Strip the leading namespace from the classname (not needed) and add the api being called
-		$result = substr(get_class( $obj) , ($p = strrpos(static::class, '\\')) !== false ? $p + 1 : 0) . $apiName;
-		// Add the num_results parameter, since if this changed a new request is needed
-		$result .= 'num_results' . $this->num_results;
-		// Add all the other parameters, since changes in them would flag up a new request is needed
-		foreach ( $this->params as $key => $value ) { $result .= $key . $value; }
-		// Remove any spaces or special characters, since they don't change the uniqueness
-		$result = preg_replace( "/[^a-zA-Z0-9]/", '', $result );
-		// Return the name of the plugin prepended to the sha1 encoding of the constructed string
-		return 'cs_integration_' . sha1( $result );
+	protected static function get_transient_key( string $api_url ) : string {
+		return 'cs_integration_' . sha1( $api_url );
 	}
 
 	/*
@@ -152,13 +148,25 @@ class Cs_JSON_API {
 	 * @return null or an array of \stdclass
 	 */ 
 	public function get_response() {
-        $result = null;
-        // Fetch the JSON data from ChurchSuite using the details supplied to construct the API URL
-		$json_data = @file_get_contents( $this->compose_API_URL() ); 
-		// Change the JSON data into objects of class \stdclass
-		if ( $json_data !== false ) { $result = json_decode($json_data); }
-		// Result will be null or an array of objects
-		return $result;
+        // Create the API_URL
+        $api_url = $this->compose_API_URL();
+
+        // Find the transient key and check for an existing cached JSON response
+        $transient_key = self::get_transient_key( $api_url );
+
+        // Fetch the cached response, if any;  If no cached response, get a new JSON response, and
+        // if JSON response is returned, convert it to objects, and store the result in the cache
+		if ( false === ( $result = get_transient( $transient_key ) ) ) {
+			// Fetch the JSON data from ChurchSuite using the details supplied to construct the API URL
+			$json_data = @file_get_contents( $api_url );
+			// Change the JSON data into objects of class \stdclass
+			if ( $json_data !== false ) { $result = json_decode($json_data); }
+			// Put the response into the cache if there is data to be stored
+			if ( ( ! is_null( $result ) ) && ( $result !== '' ) ) { set_transient( $transient_key, $result, self::CACHE_TIME ); }
+		}
+
+		// Result will be null or an array of \stdclass objects
+		return ( $result === '' ) ? null : $result;
     }
 	
 }

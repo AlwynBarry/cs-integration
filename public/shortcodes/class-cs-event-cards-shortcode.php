@@ -59,18 +59,20 @@ use amb_dev\CSI\Cs_Event_Card_View as Cs_Event_Card_View;
 	}
 		
 	/*
-	 * Get a JSON response from the API if we don't already have one, and create the HTML.
+	 * Use the JSON response to create the HTML to display the Events.
+	 * 
 	 * For each event we return what the Cs_Event_Card returns, all within a flex div.
 	 * 
  	 * @since	1.0.0
-	 * @return	string	the HTML to render the events in cards, or '' if the JSON response fails
+ 	 * @param	string	$JSON_response	the array of \stdclass objects from the JSON response
+ 	 * 									from which the HTML will be created for the shortcode response.
+	 * @return	string					the HTML to render the events in cards, or '' if the JSON response fails
 	 */
-	protected function get_response() : string {
+	protected function get_HTML_response( array $JSON_response ) : string {
 		$output = '';
-		$this->get_JSON_response();
-		if ( ! is_null( $this->JSON_response ) ) {
+		if ( ! is_null( $JSON_response ) ) {
 			$output = '<div class="cs-event-cards cs-row">' . "\n";
-			foreach ( $this->JSON_response as $event_obj ) {
+			foreach ( $JSON_response as $event_obj ) {
 				$event = new Cs_Event( $event_obj );
 			    $event_view = new Cs_Event_Card_View( $this->cs, $event );
 				$output .= $event_view->display();

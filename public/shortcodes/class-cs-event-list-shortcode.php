@@ -70,17 +70,19 @@ class Cs_Event_List_Shortcode extends Cs_Shortcode {
 	}
 
 	/*
-	 * Get a JSON response from the API if we don't already have one, and create the HTML.
+	 * Use the JSON response to create the HTML containing the list of events.
+	 * 
 	 * For each date there is only one date output in a left hand column, styled, and then
 	 * in the corresponding right hand columns we have each event on that date.
 	 * 
 	 * @since	1.0.0
-	 * @return	string	the HTML to render the events in cards, or '' if the JSON response fails
+	 * @param	string	$JSON_response	the array of \stdclass objects from the JSON response
+ 	 * 									from which the HTML will be created for the shortcode response.
+	 * @return	string					the HTML to render the events in cards, or '' if the JSON response fails
 	 */
-	protected function get_response() : string {
+	protected function get_HTML_response( array $JSON_response ) : string {
 		$output = '';
-		$this->get_JSON_response();
-		if ( ! is_null( $this->JSON_response ) ) {
+		if ( ! is_null( $JSON_response ) ) {
 			$output = '<div class="cs-event-list">';
 			// Set up a few local variables to iterate between the returned event dates
 			$current_date = new \DateTime();
@@ -89,7 +91,7 @@ class Cs_Event_List_Shortcode extends Cs_Shortcode {
 			$current_date->sub( $this->interval );
 			// Iterate over the events, only outputing a date when we have a new date
 			// Dates are only output when there are events on that date.
-			foreach ( $this->JSON_response as $event_obj ) {
+			foreach ( $JSON_response as $event_obj ) {
 				// All events are displayed - use the CSS class to hide events you don't want displayed
 				$event = new Cs_Event( $event_obj );
 				$output .= '  <div class="cs-event-row">' . "\n";
@@ -129,8 +131,11 @@ class Cs_Event_List_Shortcode extends Cs_Shortcode {
  * @param	array()	$atts	Array supplied by Wordpress of params to the shortcode
  * 							church_name="mychurch" is required - with "mychurch" replaced with your church name
  *							num_results="10" is strongly advised - int range 0..n; 0=all, 1..n = number of events specificed
+ * 							TO DO - replace default end date with a number_of_days parameter
  */
 function cs_event_list_shortcode( $atts ) {
+	// Defaulting the end date to anything decreases the JSON request time considerably
+    $atts[ 'date_end' ] ??= date("Y-m-d", strtotime("+31 day"));
 	return ( new Cs_Event_List_Shortcode( $atts ) )->run_shortcode();
 }
 	

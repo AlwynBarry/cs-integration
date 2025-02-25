@@ -42,7 +42,7 @@ class CS_Smallgroups_Shortcode extends Cs_Shortcode {
 	/*
 	 * Process the supplied attributes to leave only valid parameters, create the URLs
 	 * required for the JSON feed from ChurchSuite and create the means to communicate via
-	 * that JSON feed.  Also, create the unique cache key appropriate for this query.
+	 * that JSON feed.
 	 *
  	 * @since	1.0.0
 	 * @param	array() $atts		An array of strings representing the attributes of the JSON call
@@ -53,18 +53,20 @@ class CS_Smallgroups_Shortcode extends Cs_Shortcode {
 	}
 		
 	/*
-	 * Get a JSON response from the API if we don't already have one, and create the HTML.
+	 * Use the JSON response to create the HTML to display the groups.
+	 *
 	 * For each small group we return what the CS_Group_View returns, all within a flex div.
 	 * 
  	 * @since	1.0.0
-	 * @return	string	the HTML to render the group list, or '' if the JSON response fails
+ 	 * @param	string	$JSON_response	the array of \stdclass objects from the JSON response
+ 	 * 									from which the HTML will be created for the shortcode response.
+	 * @return	string					the HTML to render the group list, or '' if the JSON response fails
 	 */
-	protected function get_response() : string {
+	protected function get_HTML_response( array $JSON_response ) : string {
 		$output = '';
-		$this->get_JSON_response();
-		if ( ! is_null( $this->JSON_response ) ) {
+		if ( ! is_null( $JSON_response ) ) {
 			$output = '<div class="cs-smallgroups cs-row">' . "\n";
-			foreach ( $this->JSON_response as $group_obj ) {
+			foreach ( $JSON_response as $group_obj ) {
 				$group = new Cs_Group( $group_obj );
 			    $group_view = new Cs_Group_View( $this->cs, $group );
 				$output .= $group_view->display();

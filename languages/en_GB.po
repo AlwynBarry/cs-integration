@@ -32,4 +32,4 @@ msgstr ""
 
 #: public/shortcodes/class-cs-shortcode.php:129
 msgid "Please try again later for this information"
-msgstr ""
+msgstr "Please try again later for this information"
