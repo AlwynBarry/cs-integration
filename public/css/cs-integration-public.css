@@ -175,3 +175,105 @@ div.cs-compact-event p.cs-description {
 div.cs-compact-event p.cs-address {
 	font-size: 0.7rem;
 }
+
+div.cs-calendar-month-header {
+  font-size: 3rem;
+  text-align: center;
+}
+
+div.cs-calendar-table table,
+div.cs-calendar-table table td {
+    border: 1px solid #808080;
+    border-collapse: collapse;
+}
+
+div.cs-calendar-table table th {
+    border: 1px solid #3a76ca;
+}
+
+tr.cs-calendar-days-header th {
+  width: 14.3%;
+  font-weight: normal;
+  text-align: center;
+  background-color: #3A76CA;
+  color: #FFFFFF;
+  padding: 0.7rem 0.5rem;
+}
+
+td.cs-calendar-outside-month {
+  background-color: #f3f3f3;
+}
+
+td.cs-calendar-today {
+  background-color: #FFFFEF;
+}
+
+td.cs-calendar-date-cell {
+  vertical-align: top;
+  min-height: 5rem;
+}
+
+td.cs-calendar-date-cell .cs-day-number {
+    font-weight: bold;
+    color: #3a76ca;
+}
+
+div.cs-calendar-event {
+  font-size: 0.9rem;
+  margin: 1rem 0.2rem 1.5rem 0.2rem;
+}
+
+div.cs-calendar-event span::before {
+    display: none;
+}
+
+div.cs-calendar-event .cs-time {
+    font-size: 0.9rem;
+    line-height: 1rem;
+}
+
+div.cs-calendar-event .cs-event-start-time {
+    font-weight: bold;
+}
+
+div.cs-calendar-event h3 {
+    font-size: 0.9rem;
+    line-height: 1rem;
+    margin: 0.2rem 0 0 0;
+}
+
+div.cs-calendar-event .cs-event-hover-block {
+    display: none;
+}
+
+@media screen and (max-width: 650px) {  
+  .cs-responsive-table thead {
+    visibility: hidden;
+    height: 0;
+    position: absolute;
+  }
+  
+  .cs-responsive-table tr {
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  .cs-responsive-table td {
+    border: 1px solid;
+    border-bottom: none;
+    display: block;
+    font-size: .8em;
+    text-align: left;
+  }
+  
+  .cs-responsive-table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .cs-responsive-table td:last-child {
+    border-bottom: 1px solid;
+  }
+}

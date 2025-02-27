@@ -62,9 +62,11 @@ class Cs_Integration_Public {
 			'Cs_View' => 'class-cs-view.php',
 			'Cs_Event_Card_View' => 'class-cs-event-card-view.php',
 			'Cs_Compact_Event_View' => 'class-cs-compact-event-view.php',
+			'Cs_Calendar_Event_View' => 'class-cs-calendar-event-view.php',
 			'Cs_Group_View' => 'class-cs-group-view.php',
 			'Cs_Event_List_Shortcode' => 'class-cs-event-list-shortcode.php',
 			'Cs_Event_Cards_Shortcode' => 'class-cs-event-cards-shortcode.php',
+			'Cs_Calendar_Shortcode' => 'class-cs-calendar-shortcode.php',
 			'Cs_SmallGroups_Shortcode' => 'class-cs-smallgroups-shortcode.php',
 		);
 
@@ -79,6 +81,7 @@ class Cs_Integration_Public {
 	private const SHORTCODE_FUNCTION_NAMES = array(
 			'cs-event-cards' => 'cs_event_cards_shortcode',
 			'cs-event-list' => 'cs_event_list_shortcode',
+			'cs-calendar' => 'cs_calendar_shortcode',
 			'cs-smallgroups' => 'cs_smallgroups_shortcode'
 		);
 
