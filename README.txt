@@ -19,6 +19,7 @@ request.
 
 * Shortcode to return events as 'cards' with the event image and details
 * Shortcode to return events in a 'list' group by date
+* Shortcode to return a full month calendar, for the current month or a date
 * Shortcode to return groups as 'cards' with the group image and details
 * All API requests are cached with a 4 hour cache to ensure fast performance 
 
@@ -62,6 +63,11 @@ number for the Calendar category you want.
 The shortcode will be: `[cs-event-list church_name="mychurch" num_results="10"]`.  The comments above
 about parameters also apply to this shortcode.  By default only a maximum of 5 days events are returned,
 but this can be overridden by adding the `date_end` parameter.
+* For the *Calendar shortcode* place the shortcode into a page or post or into a shortcode block.
+The shortcode will look like: `[cs-calendar church_name="mychurch"]` (where `mychurch` is the name of
+your church used to get into your churchsuite). The only parameter that might be used with this apart
+from `church_name` is `date_from` which will can be any date in the month to be displayed in the format
+`2025-01-15`.
 * For the *Smallgroups shortcode*, place the shortcode into a page or post or into a shortcode block.
 The shortcode will be: `[cs-smallgroups church_name="mychurch"]` (where `mychurch` is the name of your
 church.  The more limited set of parameters provided by ChurchSuite for small groups can all be used. 
@@ -112,6 +118,10 @@ None as yet
 # Changelog
 
 ## 1.0.1
+**2025-02-27**
+* Added the first of the functionality for the `cs-calendar` shortcode.  Updated `README.md` to
+  reflect these changes.
+
 **2025-02-25**
 * Changed caching to cache API responses rather than the final HTMl, for security reasons
 * Found that num_results alone causes a 8sec response time, but adding a date_end reduces the
