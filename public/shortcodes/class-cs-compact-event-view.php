@@ -60,25 +60,27 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 	 * @returns	string	The valid HTML to display a ChurchSuite Cs_Event instance
 	 */
 	 public function display() : string {
-		// Display the outer wrapper
-        $output = '<div class="cs-compact-event cs-event-status-' . $this->cs_event->get_status() . '">' . "\n";
+		// Display the outer wrapper, and include the event unique ID
+        $output = '<div'
+					. ( ( $this->cs_event->is_identifier() ) ? ' id="cs-event-' . $this->cs_event->get_identifier() . '" ' : '' )
+					. ' class="cs-card cs-compact-event cs-event-status-' . $this->cs_event->get_status() . '">' . "\n";
 		
 		// Display the event time and the end time if provided
         if ( $this->cs_event->is_start_date() ) {
-            $output .= '    <div><span class="cs-time cs-event-start-time">' . date_format( $this->cs_event->get_start_date(), 'g:ia' ) . '</span>';
-            $output .= ( $this->cs_event->is_end_date() ) ? '-' . '<span class="cs-event-end-time">' . date_format( $this->cs_event->get_end_date(), 'g:ia' ) . '</span>' : '';
+            $output .= '    <div class="cs-time"><span class="cs-start-time">' . date_format( $this->cs_event->get_start_date(), 'g:ia' ) . '</span>';
+            $output .= ( $this->cs_event->is_end_date() ) ? '-' . '<span class="cs-end-time">' . date_format( $this->cs_event->get_end_date(), 'g:ia' ) . '</span>' : '';
 			$output .= '</div>' . "\n";
         }
 
 		// Display the event name in a link if a link is provided
-		$output .= '    <h3>' .
-					( ( $this->cs_event->is_URL() ) ? '<a href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
+		$output .= '    <h3 class="cs-event-name">' .
+					( ( $this->cs_event->is_URL() ) ? '<a class="cs-event-link" href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
 					$this->cs_event->get_name() .
 					( ( $this->cs_event->is_URL() ) ? '</a>' : '' ) .
 					'</h3>' . "\n";
 	
 		// Display the location and address if they have been provided
-        $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span>' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
+        $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span class="cs-location-gliph">' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
         $output .= ( $this->cs_event->is_address() ) ? '    <p class="cs-address">' . $this->cs_event->get_address() . '</p>' . "\n" :  '';
 
         // Close the outer wrapper

@@ -60,9 +60,10 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 	 * @returns	string	The valid HTML to display a ChurchSuite Cs_Event instance
 	 */
 	public function display() : string {
-		// Display the card
-        $output = '<div class="cs-card cs-event-card cs-event-status-' . $this->cs_event->get_status() . '">' . "\n";
-
+		// Display the card, and include the event unique ID
+        $output = '<div '
+					. ( ( $this->cs_event->is_identifier() ) ? ' id="cs-event-' . $this->cs_event->get_identifier() . '" ' : '' )
+					. ' class="cs-card cs-event-card cs-event-status-' . $this->cs_event->get_status() . '">' . "\n";
 		// Display the image area
 		$output .= '  <div class="cs-event-card-image-area">' . "\n";
 		$output .= '    ' . $this->cs_event->get_image_URL() . "\n";
@@ -72,22 +73,23 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
         $output .= '  <div class="cs-event-card-details-area">' . "\n";
 
 		// Display the event name in a link if a link is provided
-		$output .= '<h3>' .
-					( ( $this->cs_event->is_URL() ) ? '<a href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
+		$output .= '<h3 class="cs-event-name">' .
+					( ( $this->cs_event->is_URL() ) ? '<a class="cs-event-link" href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
 					$this->cs_event->get_name() .
 					( ( $this->cs_event->is_URL() ) ? '</a>' : '' ) .
 					'</h3>' . "\n";
 	
 		// Display the start and end times where they are provided
         if ( $this->cs_event->is_start_date() ) {
-            $output .= '    <div class="cs-calendar"><span>' . date_format( $this->cs_event->get_start_date(),'M jS, Y' ) . '</span></div>' . "\n";
-            $output .= '    <div class="cs-time"><span>' . date_format( $this->cs_event->get_start_date(), 'g:ia' );
-            $output .= ( $this->cs_event->is_end_date() ) ? '-' . date_format( $this->cs_event->get_end_date(), 'g:ia' ) : '';
-			$output .= '</span></div>' . "\n";
+            $output .= '    <div class="cs-date"><span class="cs-date-gliph">' . date_format( $this->cs_event->get_start_date(),'M jS, Y' ) . '</span></div>' . "\n";
+            $output .= '    <div class="cs-time">';
+            $output .= '        <span class="cs-time-gliph cs-start-time">' . date_format( $this->cs_event->get_start_date(), 'g:ia' ) . '</span>';
+            $output .= ( $this->cs_event->is_end_date() ) ? ' - <span class="cs-end-time">' . date_format( $this->cs_event->get_end_date(), 'g:ia' ) . '</span>' . "\n" : "\n";
+			$output .= '	</div>' . "\n";
         }
 
 		// Display the location and address if they have been provided
-        $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span>' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
+        $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span class="cs-location-gliph">' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
         $output .= ( $this->cs_event->is_address() ) ? '    <p class="cs-address">' . $this->cs_event->get_address() . '</p>' . "\n" :  '';
 
 		// Close the details area

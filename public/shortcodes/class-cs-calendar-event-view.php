@@ -58,21 +58,23 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 	 * @returns	string	The valid HTML to display a ChurchSuite Cs_Event instance
 	 */
 	 public function display() : string {
-		// Display the outer wrapper
-        $output = '<div class="cs-calendar-event cs-event-status-' . $this->cs_event->get_status() . '">' . "\n";
+		// Display the event wrapper, and include the event unique ID
+        $output = '<div'
+					. ( ( $this->cs_event->is_identifier() ) ? ' id="cs-event-' . $this->cs_event->get_identifier() . '" ' : '' )
+					. ' class="cs-calendar-event cs-event-status-' . $this->cs_event->get_status() . '">' . "\n";
 		
 		// Display the event time and the end time if provided
 		$event_time = '';
         if ( $this->cs_event->is_start_date() ) {
-            $event_time .= '    <div class="cs-time"><span class="cs-event-start-time">' . date_format( $this->cs_event->get_start_date(), 'g:ia' ) . '</span>';
-            $event_time .= ( $this->cs_event->is_end_date() ) ? '-' . '<span class="cs-event-end-time">' . date_format( $this->cs_event->get_end_date(), 'g:ia' ) . '</span>' : '';
+            $event_time .= '    <div class="cs-time"><span class="cs-start-time">' . date_format( $this->cs_event->get_start_date(), 'g:ia' ) . '</span>';
+            $event_time .= ( $this->cs_event->is_end_date() ) ? '-' . '<span class="cs-end-time">' . date_format( $this->cs_event->get_end_date(), 'g:ia' ) . '</span>' : '';
 			$event_time .= '</div>' . "\n";
         }
 		if ( $event_time !== '' ) { $output .= $event_time; }
 		
 		// Display the event name in a link if a link is provided
-		$event_name = '    <h3>' .
-					   ( ( $this->cs_event->is_URL() ) ? '<a href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
+		$event_name = '    <h3 class="cs-event-name">' .
+					   ( ( $this->cs_event->is_URL() ) ? '<a class="cs-event-link" href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
 					   $this->cs_event->get_name() .
 					   ( ( $this->cs_event->is_URL() ) ? '</a>' : '' ) .
 					   '</h3>' . "\n";
@@ -81,7 +83,7 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 		// Display the 'hidden' event details to be shown when hovering over the event
 		$output .= '<div class="cs-event-hover-block">'  . "\n";
 		$output .= $event_time . $event_name;
-        $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span>' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
+        $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span class="cs-location-gliph">' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
         $output .= ( $this->cs_event->is_address() ) ? '    <p class="cs-address">' . $this->cs_event->get_address() . '</p>' . "\n" :  '';
         $output .= ( $this->cs_event->is_description() ) ? '    <p class="cs-description">' . $this->cs_event->get_description() . '</p>' . "\n" :  '';
 		$output .= '</div>' . "\n";

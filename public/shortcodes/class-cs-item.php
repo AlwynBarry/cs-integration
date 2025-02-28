@@ -171,6 +171,22 @@ abstract class Cs_Item {
 
 
 	/*
+	 * Check if the item has a unique identifier - should always be true, but just in case!
+	 *
+ 	 * @since	1.0.1
+	 * @return	bool	true if the event has an identifier
+	 */
+	public function is_Identifier() : bool { return $this->identifier !== ''; }
+
+	/*
+	 * Get the item's unique identifier
+	 *
+ 	 * @since	1.0.1
+	 * @return	string	true if the event has an identifier or '' if there is no item identifier
+	 */
+	public function get_Identifier() : string { return $this->identifier; }
+
+	/*
 	 * Check if the item has the details from which we can construct a ChurchSuite URL
 	 *
  	 * @since	1.0.0

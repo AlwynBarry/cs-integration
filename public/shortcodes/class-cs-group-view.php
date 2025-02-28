@@ -86,20 +86,22 @@ use amb_dev\CSI\Cs_Group as Cs_Group;
 	 * @returns	string	The valid HTML to display a ChurchSuite Cs_Group instance
 	 */
 	public function display() : string {
-		// Display the card
-        $output = '<div class="cs-card cs-smallgroup">' . "\n";
+ 		// Display the group card, and include the group unique ID
+        $output = '<div'
+					. ( ( $this->cs_group->is_identifier() ) ? ' id="cs-group-' . $this->cs_group->get_identifier() . '"' : '' )
+					. ' class="cs-card cs-group">' . "\n";
 
 		// Display the image area
-		$output .= '  <div class="cs-smallgroup-image-area">' . "\n";
+		$output .= '  <div class="cs-group-image-area">' . "\n";
 		$output .= '    ' . $this->cs_group->get_image_URL() . "\n";
 		$output .= '  </div>' . "\n";
 		
 		// Display the details area
-        $output .= '  <div class="cs-smallgroup-details-area">' . "\n";
+        $output .= '  <div class="cs-group-details-area">' . "\n";
 
 		// Display the group name in a link if a link is provided
-		$output .= '  <h3>' .
-					( ( $this->cs_group->is_URL() ) ? '<a href="' . $this->cs_group->get_URL( $this->cs ) . '">' : '') .
+		$output .= '  <h3 class="cs-group-name">' .
+					( ( $this->cs_group->is_URL() ) ? '<a class="cs-group-link" href="' . $this->cs_group->get_URL( $this->cs ) . '">' : '') .
 					$this->cs_group->get_name() .
 					( ( $this->cs_group->is_URL() ) ? '</a>' : '' ) .
 					'</h3>' . "\n";
@@ -107,9 +109,9 @@ use amb_dev\CSI\Cs_Group as Cs_Group;
 		// Display frequency of meeting, location and time and day of meeting, if provided
 		$output .= $this->display_frequency();
 
-        $output .= ( $this->cs_group->is_location() ) ? '    <div class="cs-location"><span>' . $this->cs_group->get_location() . '</span></div>' . "\n" : '';
+        $output .= ( $this->cs_group->is_location() ) ? '    <div class="cs-location"><span class="cs-location-gliph">' . $this->cs_group->get_location() . '</span></div>' . "\n" : '';
 
-        $output .= ( $this->cs_group->is_time_of_meeting() ) ? '    <div class="cs-time"><span>' . $this->cs_group->get_time_of_meeting() . '</span></div>' . "\n" : '';
+        $output .= ( $this->cs_group->is_time_of_meeting() ) ? '    <div class="cs-time"><span class="cs-time-gliph">' . $this->cs_group->get_time_of_meeting() . '</span></div>' . "\n" : '';
 
 		// Display the description of the group
         $output .= ( $this->cs_group->is_description() ) ? '    <p class="cs-description">' . $this->cs_group->get_description() . '</p>' . "\n" : '';

@@ -19,7 +19,7 @@ div.cs-card:hover {
 }
 
 div.cs-event-card,
-div.cs-smallgroup {
+div.cs-group {
 	/* Default width provides the right card size ... height is dependent on content */
 	width: 330px;
     /* Default margin ensures cards are not 'squeezed' together too much */
@@ -28,23 +28,23 @@ div.cs-smallgroup {
 	overflow: hidden;
 }
 
-div.cs-smallgroup {
+div.cs-group {
 	width: 350px;
 	margin: 1rem 1rem;
 }
 
-div.cs-smallgroup-image-area,
+div.cs-group-image-area,
 div.cs-event-card-image-area {
 	background-image: url("https://www.cambray.org/mp3_sermons/2022/01/cambray-front-sky-CBC-1024x576-1.jpg");
 	background-size: cover;
 	height: 186px;
 }
 
-div.cs-smallgroup-image-area {
+div.cs-group-image-area {
 	height: 250px;
 }
 
-div.cs-smallgroup-image-area img {
+div.cs-group-image-area img {
 	height: 250px;
 	width: 350px;
 	object-fit: cover;
@@ -56,27 +56,36 @@ div.cs-event-card-image-area img {
 	object-fit: cover;
 }
 
-div.cs-smallgroup-details-area,
+div.cs-group-details-area,
 div.cs-event-card-details-area {
 	/* Add some padding around the internal text */
 	padding: 1rem 1rem;
 }
 
-div.cs-calendar span::before {
+h3.cs-event-name,
+h3.cs-group-name { /* no formatting at present */ }
+
+div.cs-date { /* no formatting at present */ }
+
+span.cs-date-gliph::before {
 	content: "\f133";
 	font-family: "FontAwesome";
 	padding-right: 0.5rem;
 	color: #999999;
 }
 
-div.cs-time span::before {
+div.cs-time { /* no formatting at present */ }
+
+span.cs-time-gliph::before {
 	content: "\f017";
 	font-family: "FontAwesome";
 	padding-right: 0.5rem;
 	color: #999999;
 }
 
-div.cs-location span::before {
+div.cs-location { /* no formatting at present */ }
+
+span.cs-location-gliph::before {
 	content: "\f041";
 	font-family: "FontAwesome";
 	padding-right: 0.7rem;
@@ -144,24 +153,28 @@ div.cs-event-list div.cs-compact-event:hover {
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
 }
 
-div.cs-event-list div.cs-compact-event h3,
-div.cs-event-list div.cs-compact-event h3 a {
+div.cs-event-list div.cs-compact-event h3.cs-event-name,
+div.cs-event-list div.cs-compact-event h3.ce-event-name a {
     font-size: 1rem;
 }
 
-div.cs-event-list div.cs-event-status-pending {
+div.cs-event-list div.cs-event-status-pending,
+div.cs-calendar div.cs-event-status-pending {
 	display: none;
 }
 
-div.cs-event-list div.cs-event-status-cancelled {
+div.cs-event-list div.cs-event-status-cancelled,
+div.cs-calendar div.cs-event-status-cancelled {
 	color: #808080;
 }
 
-div.cs-event-list div.cs-event-status-cancelled h3 {
+div.cs-event-list div.cs-event-status-cancelled h3.cs-event-name,
+div.cs-calendar div.cs-event-status-cancelled h3.cs-event-name {
 	text-decoration: line-through;
 }
 
-div.cs-compact-event span.cs-event-start-time {
+div.cs-compact-event span.cs-start-time,
+div.cs-calendar-event span.cs-start-time {
     font-weight: bold;
 }
 
@@ -177,14 +190,22 @@ div.cs-compact-event p.cs-address {
 }
 
 div.cs-calendar-month-header {
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
+  line-height: 3rem;
+  margin-bottom: 1rem;
 }
 
 div.cs-calendar-table table,
 div.cs-calendar-table table td {
-    border: 1px solid #808080;
+    border: 1px solid #C0C0C0;
     border-collapse: collapse;
+    padding: 0 0;
+    margin: 0 0;
+}
+
+div.cs-calendar-table table td {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
 }
 
 div.cs-calendar-table table th {
@@ -204,8 +225,9 @@ td.cs-calendar-outside-month {
   background-color: #f3f3f3;
 }
 
-td.cs-calendar-today {
+div.cs-calendar-table table td.cs-calendar-today {
   background-color: #FFFFEF;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 
 td.cs-calendar-date-cell {
@@ -213,18 +235,24 @@ td.cs-calendar-date-cell {
   min-height: 5rem;
 }
 
-td.cs-calendar-date-cell .cs-day-number {
+td.cs-calendar-date-cell div.cs-month-day {
     font-weight: bold;
     color: #3a76ca;
+    padding: 0.35rem 0.35rem;
+}
+
+td.cs-calendar-date-cell.cs-calendar-today div.cs-month-day {
+	color: white;
+	background-color: #3a76ca;
+}
+
+td.cs-calendar-date-cell div.cs-calendar-date-cell-inner {
+  margin: 0.35rem 0.35rem;
 }
 
 div.cs-calendar-event {
   font-size: 0.9rem;
-  margin: 1rem 0.2rem 1.5rem 0.2rem;
-}
-
-div.cs-calendar-event span::before {
-    display: none;
+  margin: 1rem 0 1.5rem 0;
 }
 
 div.cs-calendar-event .cs-time {
@@ -232,11 +260,11 @@ div.cs-calendar-event .cs-time {
     line-height: 1rem;
 }
 
-div.cs-calendar-event .cs-event-start-time {
+div.cs-calendar-event .cs-start-time {
     font-weight: bold;
 }
 
-div.cs-calendar-event h3 {
+div.cs-calendar-event h3.cs-event-name {
     font-size: 0.9rem;
     line-height: 1rem;
     margin: 0.2rem 0 0 0;
@@ -255,14 +283,14 @@ div.cs-calendar-event .cs-event-hover-block {
   
   .cs-responsive-table tr {
     display: block;
-    margin-bottom: .625em;
+    margin-bottom: .625rem;
   }
   
   .cs-responsive-table td {
     border: 1px solid;
     border-bottom: none;
     display: block;
-    font-size: .8em;
+    font-size: 0.8rem;
     text-align: left;
   }
   

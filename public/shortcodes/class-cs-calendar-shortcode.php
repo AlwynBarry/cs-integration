@@ -78,7 +78,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 		$atts[ 'date_start' ] ??= $this->date_from->format( 'Y-m-d' );
 		$atts[ 'date_end' ] ??= $this->date_to->format( 'Y-m-d' );
 		$atts[ 'num_results' ] = '0';
-		$atts[ 'merge' ] = 'show_all' ];
+		$atts[ 'merge' ] = 'show_all';
 		parent::__construct( $atts, ChurchSuite::EVENTS );
 	}
 
@@ -175,6 +175,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 		$output .= '  <table class="cs-responsive-table">' . "\n";
 		$output .= '    <thead>' . "\n";
 		$output .= '      <tr class="cs-calendar-days-header">' . "\n";
+		
 		// Add the day headers for the table using the week within which is the supplied date
 		// Doing this computationally ensures that we have localised day names produced.
 		$sunday_date = self::get_sunday_before_month( $date );
@@ -184,6 +185,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 		foreach ( $period as $day ) {
 			$output .= '        <th class="cs-day-header">' . $day->format( 'D' ) . '</th>' . "\n";
 		}
+
 		// Output the end of the table row and header
 		$output .= '      </tr>' . "\n";
 		$output .= '    </thead>'. "\n";
@@ -209,13 +211,16 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 * @since 1.0.1
 	 * @return	\string				a string that gives the top of a day cell
 	 */
-	protected function get_day_top( int $day, bool $in_month, bool $is_today ) : string {
+	protected function get_day_top( int $day, string $month, bool $in_month, bool $is_today ) : string {
 		$output = '<td class="cs-calendar-date-cell'
 		                . ( ( $in_month ) ? ' cs-calendar-in-month' : ' cs-calendar-outside-month' )
 		                . ( ( $is_today ) ? ' cs-calendar-today' : '' )
 		                . '">' . "\n";
+		$output .= '    <div class="cs-month-day">' . "\n";
+		if ( $day === 1 ) { $output .= '            <span class="cs-month">' . $month . '</span>' . '&nbsp;'; }
+		$output .= '<span class="cs-day-number ">' . $day . '</span>' . "\n";
+		$output .= '    </div>' . "\n";
 		$output .= '	<div class="cs-calendar-date-cell-inner">' . "\n";
-		$output .= '		<div class="cs-day-number ">' . $day . '</div>' . "\n";
 		$output .= '		<div class="cs-day-content">' . "\n";
 		return $output;
 	}
@@ -227,7 +232,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 * @return	\string				a string that gives the bottom of a day cell
 	 */
 	protected function get_day_bottom() : string {
-		$output = '		</div>' . "\n";
+		$output = '		    </div>' . "\n";
 		$output .= '	</div>' . "\n";
 		$output .= '</td>' . "\n";
 		return $output;
@@ -252,7 +257,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 			$date = clone $this->date_from;
 			// Output the start of the first row of the table, for the first week
 			$output .= '<tr class="cs-calendar-row">' . "\n";
-			$output .= self::get_day_top( $date->format( 'd' ), $this->is_date_in_month( $date ), $this->is_date_today( $date ) );
+			$output .= self::get_day_top( $date->format( 'j' ), $date->format( 'F' ), $this->is_date_in_month( $date ), $this->is_date_today( $date ) );
 			// Iterate over all events in the month; If none, the later loop will print out the blank month
 			foreach ( $JSON_response as $event_obj ) {
 				$event = new Cs_Event( $event_obj );
@@ -265,7 +270,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 					$day_count++;
 					// Output a new row for each new week
 					$output .= ( ( $day_count % 7 ) == 0 ) ? '</tr>' . "\n" . '<tr class="cs-calendar-row">' . "\n" : '';
-					$output .= $this->get_day_top( $date->format( 'd' ), $this->is_date_in_month( $date ), $this->is_date_today( $date ) );
+					$output .= $this->get_day_top( $date->format( 'j' ), $date->format( 'F' ), $this->is_date_in_month( $date ), $this->is_date_today( $date ) );
 				}
 				// We should now be in the date of the event, but check just in case
 				if ( ( $date == $event_date ) && ( $date <= $this->date_to ) ) {
@@ -283,7 +288,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 			// Fill in any empty dates after the final event
 			while ( $date <= $this->date_to ) {
 				// Output a new cell for each new day
-				$output .= $this->get_day_top( $date->format( 'd' ) , $this->is_date_in_month( $date ), $this->is_date_today( $date ) ) . self::get_day_bottom();
+				$output .= $this->get_day_top( $date->format( 'j' ), $date->format( 'F' ), $this->is_date_in_month( $date ), $this->is_date_today( $date ) ) . self::get_day_bottom();
 				$date->add( $this->one_day );
 				$day_count++;
 				// Output a new row for each new week
