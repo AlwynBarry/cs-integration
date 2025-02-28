@@ -163,10 +163,11 @@ class Cs_Integration_Public {
 	 */
 	public function enqueue_scripts() {
 
-		/**
+		/*
+		 * We are using plain JavaScript.  This is the original boilerplate code for jQuery.
+		 * wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/cs-integration-public.js', array( 'jquery' ), $this->version, false );
 		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/cs-integration-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/cs-integration-public.js', array(), $this->version, false );
 
 	}
 

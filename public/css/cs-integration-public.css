@@ -253,6 +253,7 @@ td.cs-calendar-date-cell div.cs-calendar-date-cell-inner {
 div.cs-calendar-event {
   font-size: 0.9rem;
   margin: 1rem 0 1.5rem 0;
+  position: relative;
 }
 
 div.cs-calendar-event .cs-time {
@@ -272,6 +273,39 @@ div.cs-calendar-event h3.cs-event-name {
 
 div.cs-calendar-event .cs-event-hover-block {
     display: none;
+    background-color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+}
+
+div.cs-calendar-event button.cs-clickable-caret{
+  float: right;
+  background-color: #f0f0f0;
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+  font-size: 0.7rem;
+}
+  
+div.cs-calendar-event .cs-event-hover-block.cs-event-hover-reveal {
+  position: absolute;
+  /*margin: -1rem auto; /* Cover the button by the div */
+  padding: 1rem;
+  border: 1px solid #888;
+  width: 20rem;
+  display: block;
+  z-index: 1;
+  left: 1rem;
+}
+
+div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(6) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
+div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:last-child div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
+  left: -13rem;
+} 
+
+div.cs-calendar-event .cs-event-hover-block .cs-description {
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 5em;
 }
 
 @media screen and (max-width: 650px) {  
