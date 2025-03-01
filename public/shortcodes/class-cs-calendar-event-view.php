@@ -73,11 +73,11 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 		if ( $event_time !== '' ) { $output .= $event_time; }
 		
 		// Display the event name in a link if a link is provided
-		$event_name = '    <h3 class="cs-event-name">' .
+		$event_name = '    <div class="cs-event-name">' .
 					   ( ( $this->cs_event->is_URL() ) ? '<a class="cs-event-link" href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
 					   $this->cs_event->get_name() .
 					   ( ( $this->cs_event->is_URL() ) ? '</a>' : '' ) .
-					   '</h3>' . "\n";
+					   '</div>' . "\n";
 		$output .= $event_name;
 		
 		// Display the '...' link to reveal the hidden event details
@@ -88,8 +88,8 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 		$output .= '<button class="cs-clickable-caret" onclick="cs_hideEventDetails(this)">X</button>'  . "\n";
 		$output .= $event_time . $event_name;
         $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span class="cs-location-gliph">' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
-        $output .= ( $this->cs_event->is_address() ) ? '    <p class="cs-address">' . $this->cs_event->get_address() . '</p>' . "\n" :  '';
-        $output .= ( $this->cs_event->is_description() ) ? '    <p class="cs-description">' . $this->cs_event->get_description() . '</p>' . "\n" :  '';
+        $output .= ( $this->cs_event->is_address() ) ? '    <div class="cs-address">' . $this->cs_event->get_address() . '</div>' . "\n" :  '';
+        $output .= ( $this->cs_event->is_description() ) ? '    <div class="cs-description">' . $this->cs_event->get_description() . '</div>' . "\n" :  '';
 		$output .= '</div>' . "\n";
 		
         // Close the outer wrapper

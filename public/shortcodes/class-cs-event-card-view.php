@@ -73,11 +73,11 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
         $output .= '  <div class="cs-event-card-details-area">' . "\n";
 
 		// Display the event name in a link if a link is provided
-		$output .= '<h3 class="cs-event-name">' .
+		$output .= '<div class="cs-event-name">' .
 					( ( $this->cs_event->is_URL() ) ? '<a class="cs-event-link" href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
 					$this->cs_event->get_name() .
 					( ( $this->cs_event->is_URL() ) ? '</a>' : '' ) .
-					'</h3>' . "\n";
+					'</div>' . "\n";
 	
 		// Display the start and end times where they are provided
         if ( $this->cs_event->is_start_date() ) {
@@ -90,7 +90,7 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 
 		// Display the location and address if they have been provided
         $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span class="cs-location-gliph">' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
-        $output .= ( $this->cs_event->is_address() ) ? '    <p class="cs-address">' . $this->cs_event->get_address() . '</p>' . "\n" :  '';
+        $output .= ( $this->cs_event->is_address() ) ? '    <div class="cs-address">' . $this->cs_event->get_address() . '</div>' . "\n" :  '';
 
 		// Close the details area
         $output .= '  </div>' . "\n";

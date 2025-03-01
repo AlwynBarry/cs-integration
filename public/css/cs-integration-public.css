@@ -62,8 +62,11 @@ div.cs-event-card-details-area {
 	padding: 1rem 1rem;
 }
 
-h3.cs-event-name,
-h3.cs-group-name { /* no formatting at present */ }
+div.cs-event-name,
+div.cs-group-name { 
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
 
 div.cs-date { /* no formatting at present */ }
 
@@ -92,11 +95,12 @@ span.cs-location-gliph::before {
 	color: #999999;
 }
 
-p.cs-address,
-p.cs-description {
+div.cs-address,
+div.cs-description {
     font-size: 0.8rem;
     line-height: 1.25;
 	color: #555555;
+	margin: 1rem 0;
 }
 
 div.cs-event-list div.cs-event-row {
@@ -153,8 +157,8 @@ div.cs-event-list div.cs-compact-event:hover {
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
 }
 
-div.cs-event-list div.cs-compact-event h3.cs-event-name,
-div.cs-event-list div.cs-compact-event h3.ce-event-name a {
+div.cs-event-list div.cs-compact-event div.cs-event-name,
+div.cs-event-list div.cs-compact-event div.ce-event-name a {
     font-size: 1rem;
 }
 
@@ -168,8 +172,8 @@ div.cs-calendar div.cs-event-status-cancelled {
 	color: #808080;
 }
 
-div.cs-event-list div.cs-event-status-cancelled h3.cs-event-name,
-div.cs-calendar div.cs-event-status-cancelled h3.cs-event-name {
+div.cs-event-list div.cs-event-status-cancelled div.cs-event-name,
+div.cs-calendar div.cs-event-status-cancelled div.cs-event-name {
 	text-decoration: line-through;
 }
 
@@ -179,14 +183,16 @@ div.cs-calendar-event span.cs-start-time {
 }
 
 div.cs-compact-event div.cs-location,
-div.cs-compact-event p.cs-address,
-div.cs-compact-event p.cs-description {
+div.cs-compact-event div.cs-address,
+div.cs-compact-event div.cs-description {
 	line-height: 1rem;
-	margin: 0.3rem;
+	margin: 0.3rem 0;
 }
 
-div.cs-compact-event p.cs-address {
+div.cs-compact-event div.cs-address,
+div.cs-calendar-event div.cs-address {
 	font-size: 0.7rem;
+	margin: 0.3rem 0 0.3rem 1.1rem;
 }
 
 div.cs-calendar-month-header {
@@ -265,7 +271,7 @@ div.cs-calendar-event .cs-start-time {
     font-weight: bold;
 }
 
-div.cs-calendar-event h3.cs-event-name {
+div.cs-calendar-event div.cs-event-name {
     font-size: 0.9rem;
     line-height: 1rem;
     margin: 0.2rem 0 0 0;
@@ -301,7 +307,16 @@ div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:last
   left: -13rem;
 } 
 
+div.cs-calendar-event .cs-event-hover-block .cs-location {
+  margin: 0.7rem 0 0 0;
+}
+
+div.cs-calendar-event .cs-event-hover-block .cs-address {
+  margin: 0.3rem 0 0.3rem 1.1rem;
+}
+
 div.cs-calendar-event .cs-event-hover-block .cs-description {
+  margin: 0.7rem 0 0.7rem 0;
   text-overflow: ellipsis;
   word-wrap: break-word;
   overflow: hidden;
@@ -335,7 +350,17 @@ div.cs-calendar-event .cs-event-hover-block .cs-description {
     text-transform: uppercase;
   }
   
+  .cs-responsive-table td.cs-calendar-outside-month {
+    display: none;
+  }
+  
   .cs-responsive-table td:last-child {
     border-bottom: 1px solid;
   }
+  
+  div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(6) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
+  div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:last-child div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
+	left: 1rem;
+  }
+
 }
