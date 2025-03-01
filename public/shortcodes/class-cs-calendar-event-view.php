@@ -81,11 +81,11 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 		$output .= $event_name;
 		
 		// Display the '...' link to reveal the hidden event details
-		$output .= '<button class="cs-clickable-caret" onclick="cs_revealEventDetails(this)">...</button>'  . "\n";
+		$output .= '<button class="cs-clickable-caret" aria-label="Open Modal" onclick="cs_revealEventDetails(this)">...</button>'  . "\n";
 		
 		// Display the 'hidden' event details to be shown when hovering over the event
 		$output .= '<div class="cs-event-hover-block">'  . "\n";
-		$output .= '<button class="cs-clickable-caret" onclick="cs_hideEventDetails(this)">X</button>'  . "\n";
+		$output .= '<button class="cs-clickable-caret" aria-label="Close Modal" onclick="cs_hideEventDetails(this)">X</button>'  . "\n";
 		$output .= $event_time . $event_name;
         $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span class="cs-location-gliph">' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
         $output .= ( $this->cs_event->is_address() ) ? '    <div class="cs-address">' . $this->cs_event->get_address() . '</div>' . "\n" :  '';
