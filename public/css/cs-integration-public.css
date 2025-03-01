@@ -7,10 +7,10 @@ div.cs-row {
 }
 
 div.cs-card {
-  /* Add shadows to create the "card" effect */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  background-color: white;
+	/* Add shadows to create the "card" effect */
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	transition: 0.3s;
+	background-color: white;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -64,8 +64,8 @@ div.cs-event-card-details-area {
 
 div.cs-event-name,
 div.cs-group-name { 
-  font-size: 1.5rem;
-  margin: 1rem 0;
+	font-size: 1.5rem;
+	margin: 1rem 0;
 }
 
 div.cs-date { /* no formatting at present */ }
@@ -196,10 +196,10 @@ div.cs-calendar-event div.cs-address {
 }
 
 div.cs-calendar-month-header {
-  font-size: 2.5rem;
-  text-align: center;
-  line-height: 3rem;
-  margin-bottom: 1rem;
+	font-size: 2.5rem;
+	text-align: center;
+	line-height: 3rem;
+	margin-bottom: 1rem;
 }
 
 div.cs-calendar-table table,
@@ -219,26 +219,27 @@ div.cs-calendar-table table th {
 }
 
 tr.cs-calendar-days-header th {
-  width: 14.3%;
-  font-weight: normal;
-  text-align: center;
-  background-color: #3A76CA;
-  color: #FFFFFF;
-  padding: 0.7rem 0.5rem;
+	min-width: 90px;
+	width: 14.3%;
+	font-weight: normal;
+	text-align: center;
+	background-color: #3A76CA;
+	color: #FFFFFF;
+	padding: 0.7rem 0.5rem;
 }
 
 td.cs-calendar-outside-month {
-  background-color: #f3f3f3;
+	background-color: #f3f3f3;
 }
 
 div.cs-calendar-table table td.cs-calendar-today {
-  background-color: #FFFFEF;
-  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+	background-color: #FFFFEF;
+	box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 
 td.cs-calendar-date-cell {
-  vertical-align: top;
-  min-height: 5rem;
+	vertical-align: top;
+	min-height: 5rem;
 }
 
 td.cs-calendar-date-cell div.cs-month-day {
@@ -253,13 +254,13 @@ td.cs-calendar-date-cell.cs-calendar-today div.cs-month-day {
 }
 
 td.cs-calendar-date-cell div.cs-calendar-date-cell-inner {
-  margin: 0.35rem 0.35rem;
+	margin: 0.35rem 0.35rem;
 }
 
 div.cs-calendar-event {
-  font-size: 0.9rem;
-  margin: 1rem 0 1.5rem 0;
-  position: relative;
+	font-size: 0.9rem;
+	margin: 1rem 0 1.5rem 0;
+	position: relative;
 }
 
 div.cs-calendar-event .cs-time {
@@ -284,83 +285,94 @@ div.cs-calendar-event .cs-event-hover-block {
 }
 
 div.cs-calendar-event button.cs-clickable-caret{
-  float: right;
-  background-color: #f0f0f0;
-  border: 1px solid #d0d0d0;
-  border-radius: 3px;
-  font-size: 0.7rem;
+	float: right;
+	background-color: transparent;
+	border: none;
+	font-size: 1rem;
+	color: #303030;
 }
-  
+
+div.cs-calendar-event .cs-event-hover-block button.cs-clickable-caret {
+	float: right;
+	color: #303030;
+	background-color: #f0f0f0;
+	border: 1px solid #d0d0d0;
+	border-radius: 3px;
+	font-size: 0.7rem;
+}
+
 div.cs-calendar-event .cs-event-hover-block.cs-event-hover-reveal {
-  position: absolute;
-  /*margin: -1rem auto; /* Cover the button by the div */
-  padding: 1rem;
-  border: 1px solid #888;
-  width: 20rem;
-  display: block;
-  z-index: 1;
-  left: 1rem;
+	position: absolute;
+	padding: 1rem;
+	border: 1px solid #888;
+	width: 20rem;
+	display: block;
+	z-index: 1;
+	left: 1rem;
 }
 
 div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(6) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
 div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:last-child div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
-  left: -13rem;
+	left: -auto;
+	right: 0rem;
 } 
 
 div.cs-calendar-event .cs-event-hover-block .cs-location {
-  margin: 0.7rem 0 0 0;
+	margin: 0.7rem 0 0 0;
 }
 
 div.cs-calendar-event .cs-event-hover-block .cs-address {
-  margin: 0.3rem 0 0.3rem 1.1rem;
+	margin: 0.3rem 0 0.3rem 1.1rem;
 }
 
 div.cs-calendar-event .cs-event-hover-block .cs-description {
-  margin: 0.7rem 0 0.7rem 0;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  overflow: hidden;
-  max-height: 5em;
+	margin: 0.7rem 0 0.7rem 0;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	overflow: hidden;
+	max-height: 5em;
 }
 
-@media screen and (max-width: 650px) {  
-  .cs-responsive-table thead {
-    visibility: hidden;
-    height: 0;
-    position: absolute;
-  }
+@media screen and (max-width: 700px) {  
+	.cs-responsive-table thead {
+		visibility: hidden;
+		height: 0;
+		position: absolute;
+	}
+	  
+	.cs-responsive-table tr {
+		display: block;
+		margin-bottom: .625rem;
+	}
+	  
+	.cs-responsive-table td {
+		border: 1px solid;
+		border-bottom: none;
+		display: block;
+		font-size: 0.8rem;
+		text-align: left;
+	}
+	  
+	.cs-responsive-table td::before {
+		content: attr(data-label);
+		float: left;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	  
+	.cs-responsive-table td.cs-calendar-outside-month {
+		display: none;
+	}
+	  
+	.cs-responsive-table td:last-child {
+		border-bottom: 1px solid;
+	}
   
-  .cs-responsive-table tr {
-    display: block;
-    margin-bottom: .625rem;
-  }
-  
-  .cs-responsive-table td {
-    border: 1px solid;
-    border-bottom: none;
-    display: block;
-    font-size: 0.8rem;
-    text-align: left;
-  }
-  
-  .cs-responsive-table td::before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .cs-responsive-table td.cs-calendar-outside-month {
-    display: none;
-  }
-  
-  .cs-responsive-table td:last-child {
-    border-bottom: 1px solid;
-  }
-  
-  div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(6) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
-  div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:last-child div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
-	left: 1rem;
-  }
+    div.cs-calendar-event .cs-event-hover-block.cs-event-hover-reveal,
+	div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(6) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
+	div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:last-child div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
+		left: auto;
+		right: 0rem;
+	}
 
 }
