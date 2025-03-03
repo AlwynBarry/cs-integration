@@ -45,11 +45,14 @@ use amb_dev\CSI\Cs_Compact_Event_View as Cs_Compact_Event_View;
  */
 class Cs_Event_List_Shortcode extends Cs_Shortcode {
 	
-	protected \DateInterval $interval;
+	/*
+	 * Provided to prevent continual re-creation of a constant value used in date calculations
+	 */
+	protected readonly \DateInterval $one_day;
 
 	public function __construct( $atts ) {
 		parent::__construct( $atts, ChurchSuite::EVENTS );
-		$this->interval = \DateInterval::createFromDateString( '1 day' );
+		$this->one_day = \DateInterval::createFromDateString( '1 day' );
 	}
 
 	/*
@@ -88,7 +91,7 @@ class Cs_Event_List_Shortcode extends Cs_Shortcode {
 			$current_date = new \DateTime();
 			$current_date->setTime( 0, 0 );
 			// We need the first event date output, so we go back a date to trigger the first event date output
-			$current_date->sub( $this->interval );
+			$current_date->sub( $this->one_day );
 			// Iterate over the events, only outputing a date when we have a new date
 			// Dates are only output when there are events on that date.
 			foreach ( $JSON_response as $event_obj ) {
@@ -135,7 +138,10 @@ class Cs_Event_List_Shortcode extends Cs_Shortcode {
  */
 function cs_event_list_shortcode( $atts ) {
 	// Defaulting the end date to anything decreases the JSON request time considerably
-    $atts[ 'date_end' ] ??= date("Y-m-d", strtotime("+5 day"));
+	$date = new \DateTime();
+	$five_days = \DateInterval::createFromDateString('5 days');
+	$date->add($five_days);
+    $atts[ 'date_end' ] ??= $date->format( 'Y-m-d' );
 	return ( new Cs_Event_List_Shortcode( $atts ) )->run_shortcode();
 }
 	

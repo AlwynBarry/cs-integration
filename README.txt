@@ -1,19 +1,19 @@
-# CS Integration
+# Integration for ChurchSuite
 Contributors: Alwyn Barry
 Tags: Events, ChurchSuite, Featured
 Requires at least: 6.4
 Tested up to: 6.7.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 
-CS Integration is a plugin to enable display of data from ChurchSuite JSON feeds
+Integration for ChurchSuite is a plugin to enable display of data from ChurchSuite JSON feeds
 
 ## Description
 
-CS Integration is a plugin that requests JSON data from a supplied ChurchSuite feed and
-displays the data returned. The API feed currently provides for querying Calendar Events
-and SmallGroups. The plugin allows you to provide parameters which will filter the
-request.
+Integration for ChurchSuite (AKA CS Integration) is a plugin that requests JSON data from
+a supplied public ChurchSuite feed and displays the data returned. The API feed currently
+provides for querying Calendar Events and SmallGroups. The plugin allows you to provide
+parameters which will filter the request.
 
 ## Current features include:
 

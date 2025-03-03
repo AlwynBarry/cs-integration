@@ -128,7 +128,7 @@ use amb_dev\CSI\Cs_Item as Cs_Item;
 		if ( isset( $group_obj->day ) && is_numeric( $group_obj->day ) ) {
 			$day_of_week_numeric = (int) $group_obj->day;
 			if ( ( $day_of_week_numeric >= 0 ) && ( $day_of_week_numeric <= 6 ) ) {
-				$output .= " on " . $dow_text = date( 'l', strtotime( "Sunday +{$day_of_week_numeric} days" ) );
+				$output .= " on " . $dow_text = gmdate( 'l', strtotime( "Sunday +{$day_of_week_numeric} days" ) );
 			}
 		}
 		return $output;

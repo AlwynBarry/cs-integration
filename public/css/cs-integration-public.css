@@ -242,13 +242,24 @@ td.cs-calendar-date-cell {
 	min-height: 5rem;
 }
 
-td.cs-calendar-date-cell div.cs-month-day {
+td.cs-calendar-date-cell div.cs-date span.cs-day,
+td.cs-calendar-date-cell div.cs-date span.cs-month,
+td.cs-calendar-date-cell div.cs-date span.cs-year {
+	display: none;
+}
+
+td.cs-calendar-date-cell div.cs-date.cs-first-day span.cs-month {
+	display: inline;
+	margin-left: 0.5rem;
+}
+
+td.cs-calendar-date-cell div.cs-date {
     font-weight: bold;
     color: #3a76ca;
     padding: 0.35rem 0.35rem;
 }
 
-td.cs-calendar-date-cell.cs-calendar-today div.cs-month-day {
+td.cs-calendar-date-cell.cs-calendar-today div.cs-date {
 	color: white;
 	background-color: #3a76ca;
 }
@@ -308,13 +319,14 @@ div.cs-calendar-event .cs-event-hover-block.cs-event-hover-reveal {
 	width: 20rem;
 	display: block;
 	z-index: 1;
-	left: 1rem;
+	left: auto;
+	right: 0rem;
 }
 
-div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(6) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
-div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:last-child div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
-	left: -auto;
-	right: 0rem;
+div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(1) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
+div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(2) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
+	left: 1rem;
+	right: auto;
 } 
 
 div.cs-calendar-event .cs-event-hover-block .cs-location {
@@ -327,52 +339,79 @@ div.cs-calendar-event .cs-event-hover-block .cs-address {
 
 div.cs-calendar-event .cs-event-hover-block .cs-description {
 	margin: 0.7rem 0 0.7rem 0;
-	text-overflow: ellipsis;
 	word-wrap: break-word;
-	overflow: hidden;
 	max-height: 5em;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 700px) {  
-	.cs-responsive-table thead {
+
+	div.cs-calendar-table table.cs-responsive-table thead {
 		visibility: hidden;
 		height: 0;
 		position: absolute;
 	}
 	  
-	.cs-responsive-table tr {
+	div.cs-calendar-table table.cs-responsive-table {
+	    border: 0px solid transparent;
+	}
+
+	div.cs-calendar-table table.cs-responsive-table td.cs-calendar-date-cell {
+		border: 0px solid transparent;
+		box-shadow: 0 0 0 0 white;
+		display: flex;
+	}
+	  
+	div.cs-calendar-table table.cs-responsive-table tr.cs-calendar-row {
 		display: block;
-		margin-bottom: .625rem;
+		margin-bottom: 0.7rem;
 	}
-	  
-	.cs-responsive-table td {
-		border: 1px solid;
-		border-bottom: none;
-		display: block;
-		font-size: 0.8rem;
-		text-align: left;
-	}
-	  
-	.cs-responsive-table td::before {
-		content: attr(data-label);
-		float: left;
-		font-weight: bold;
-		text-transform: uppercase;
-	}
-	  
-	.cs-responsive-table td.cs-calendar-outside-month {
+
+	div.cs-calendar-table table.cs-responsive-table td.cs-calendar-outside-month {
 		display: none;
 	}
-	  
-	.cs-responsive-table td:last-child {
-		border-bottom: 1px solid;
-	}
-  
+
     div.cs-calendar-event .cs-event-hover-block.cs-event-hover-reveal,
-	div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(6) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
-	div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:last-child div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
+	div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(1) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
+	div.cs-calendar-table table.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(2) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
 		left: auto;
 		right: 0rem;
+	}
+
+	div.cs-calendar-table table.cs-responsive-table td.cs-calendar-date-cell div.cs-date span.cs-day,
+	div.cs-calendar-table table.cs-responsive-table td.cs-calendar-date-cell div.cs-date span.cs-month {
+		display: block;
+	}
+
+	div.cs-calendar-table table.cs-responsive-table td.cs-calendar-date-cell div.cs-date {
+		background-color: #3a76ca;
+		color: white;
+		padding: 5px 5px;
+		width: 3.5rem;
+		max-width: 3.5rem;
+		text-align: center;
+		font-size: 0.7rem;
+		font-weight: normal;
+		border-radius: 5px;
+		line-height: 1rem;
+		height: 4.3rem;
+		margin-right: 1rem;
+	}
+	
+	div.cs-calendar-table table.cs-responsive-table td.cs-calendar-date-cell div.cs-date .cs-date-number {
+	    font-size: 1.4rem;
+	    font-weight: strong;
+	    line-height: 1.4rem;
+    }
+
+	div.cs-calendar-table table.cs-responsive-table td.cs-calendar-date-cell div.cs-date.cs-first-day span.cs-month {
+		display: block;
+		margin-left: 0;
+	}
+
+	div.cs-calendar-table table.cs-responsive-table td.cs-calendar-date-cell div.cs-calendar-date-cell-inner {
+	    width: 100%;
 	}
 
 }
