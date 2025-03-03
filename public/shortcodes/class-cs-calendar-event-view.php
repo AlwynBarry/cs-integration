@@ -58,10 +58,14 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 	 * @returns	string	The valid HTML to display a ChurchSuite Cs_Event instance
 	 */
 	 public function display() : string {
-		// Display the event wrapper, and include the event unique ID
+		// Display the event wrapper, and include the event unique ID, the event
+		// status and the event category as classes to be styled, if these are set
         $output = '<div'
 					. ( ( $this->cs_event->is_identifier() ) ? ' id="cs-event-' . $this->cs_event->get_identifier() . '" ' : '' )
-					. ' class="cs-calendar-event cs-event-status-' . $this->cs_event->get_status() . '">' . "\n";
+					. ' class="cs-calendar-event'
+					. ' cs-event-status-' . $this->cs_event->get_status()
+					. ( ( $this->cs_event->is_category() ) ? ' ' . $this->cs_event->get_category_as_html_class() : '' )
+					. '">' . "\n";
 		
 		// Display the event time and the end time if provided
 		$event_time = '';

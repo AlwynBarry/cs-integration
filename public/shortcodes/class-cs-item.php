@@ -98,7 +98,9 @@ abstract class Cs_Item {
 	}
 	
 	/*
-	 * Return the item name from the JSON event object, or the string 'Unnamed Event' if the name is missing or malformed
+	 * Return the item name from the JSON event object, or the string 'Unnamed Event' if
+	 * the name is missing or malformed.  Any stray html tags in the name are stripped.
+	 * 
 	 * Note: the object parameter must be checked to be a valid object before this is called
 	 * Developer Note: Override this function if the identifier is in a different place in the new object
 	 *
@@ -108,7 +110,7 @@ abstract class Cs_Item {
 	 */
 	protected function sanitize_name( \stdclass $item_obj ) : string {
 		return ( isset( $item_obj->name ) && ( $item_obj->name !== '' ) ) 
-					? htmlspecialchars( $item_obj->name )
+					? trim ( strip_tags( $item_obj->name ) )
 					: 'Unnamed';
 	}
 

@@ -55,11 +55,13 @@ use amb_dev\CSI\Cs_Item as Cs_Item;
 	 * @var		\DateTime	$end_date	The sanitized end date and time of an event or null if no end date/time
 	 * @var		string		$address	The sanitized address where the event is happening, or '' if not supplied
 	 * @var		string		$status		The status of the event - one of the items from the EVENT_STATUS array
+     * @var		string		$category	The sanitized name of the category of this event, or '' if not supplied
 	 */
 	protected readonly \DateTime $start_date;
 	protected readonly \DateTime $end_date;
 	protected readonly string $address;
 	protected readonly string $status;
+	protected readonly string $category;
 
     /*
      * Construct the initial values, sanitising all input provided to ensure all data is valid.
@@ -74,6 +76,7 @@ use amb_dev\CSI\Cs_Item as Cs_Item;
 			$this->end_date = $this->sanitize_end_date( $event_obj );
 			$this->address = $this->sanitize_address( $event_obj );
 			$this->status = $this->sanitize_status( $event_obj );
+			$this->category = $this->sanitize_category( $event_obj );
 		} else {
 			// Set all the strings to default values - usually ''
 			// Has to be set here because readonly variables can only be set once
@@ -81,6 +84,7 @@ use amb_dev\CSI\Cs_Item as Cs_Item;
 			$this->end_date = null;
 			$this->address = '';
 			$this->status = 'cancelled';
+			$this->category = '';
 		}
 	}
 
@@ -160,6 +164,23 @@ use amb_dev\CSI\Cs_Item as Cs_Item;
 			$result = ( in_array( $result, \amb_dev\CSI\Cs_Event::EVENT_STATUS ) ) ? $result : \amb_dev\CSI\Cs_Event::EVENT_STATUS[0];
 		}
 		return $result;
+	}
+
+	/*
+	 * Return the event category name from the JSON event object, or '' if the category name is missing or malformed
+	 * The category string is sanitized to remove any html special characters, and to trim leading and trailing spaces
+	 * 
+	 * Note: the object parameter must be checked to be a valid object before this is called
+	 * Developer Note: Override this function if the category name is in a different place in the new object
+	 * 
+	 * @since	1.0.0
+	 * @param	\stdclass	$event_obj	the ChurchSuite JSON object for this event
+	 * @return	string					the category name string, or '' if invalid
+	 */
+	protected function sanitize_category( \stdclass $event_obj ) : string {
+		return ( isset( $event_obj->category->name ) ) 
+					? trim( strip_tags( $event_obj->category->name ) )
+					: '';
 	}
 
 	/*
@@ -258,5 +279,49 @@ use amb_dev\CSI\Cs_Item as Cs_Item;
 	 * @return	bool	true if status is 'pending' 
 	 */
 	public function is_pending() : string { return $this->status === 'pending'; }
+
+	/*
+	 * Check if the event has a supplied category
+	 * 
+	 * @since	1.0.0
+	 * @return	bool	true if the event has a supplied category
+	 */
+	public function is_category() : bool { return ( $this->category !== '' ); }
+
+	/*
+	 * Get the category name for the event
+	 * 
+	 * @since	1.0.0
+	 * @return	string	the (sanitized) category name or '' if no category was given for this event 
+	 */
+	public function get_category() : string { return $this->category; }
+	
+	/*
+	 * Get the category name for the event modified so it could be used as a HTML class name
+	 * Note: The returned category is modified to return only the A-Za-z0-9 and hyphen characters
+	 * 		 All underscores become hyphens, all non alpha-numeric are discarded, and consecutive hyphens
+	 * 		 are removed to become a single hyphen.  This allows the category name to be used as a class name
+	 * 
+	 * @since	1.0.0
+	 * @return	string	the category name modified to add a leading 'cs-' and to replace non alpha-numeric
+	 * 					with single hyphen.  Return '' if no category name was given for this event. 
+	 */
+	public function get_category_as_html_class() : string {
+		$result = $this->get_category();
+		if ( $this->is_category() ) {
+			// Remove leading and trailing spaces
+			$result = trim( $result );
+			// Replace all non-alphanumeric with hyphens
+			$result = preg_replace( '#[^a-z0-9-]#i', '-', $result );
+			// Replace consecutive hyphens with single hyphen
+			$result = preg_replace('#[ -]+#', '-', $result );
+			// Remove starting and trailing hyphens
+			$result = 'cs-' . trim( rtrim( $result, '-'), '-');
+			// Uppercase to lowercase
+			$result = strtolower( $result ); 
+		}
+		return $result;
+	}
+
 
 }
