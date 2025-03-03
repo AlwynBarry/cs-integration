@@ -1,10 +1,10 @@
 # Integration for ChurchSuite
-Contributors: Alwyn Barry
-Tags: Events, ChurchSuite, Featured
-Requires at least: 6.4
-Tested up to: 6.7.2
-Stable tag: 1.0.2
-License: GPLv2 or later
+* Contributors: Alwyn Barry
+* Tags: Events, ChurchSuite, Featured
+* Requires at least: 6.4
+* Tested up to: 6.7.2
+* Stable tag: 1.0.2
+* License: GPLv2 or later
 
 Integration for ChurchSuite is a plugin to enable display of data from ChurchSuite JSON feeds
 
@@ -24,15 +24,6 @@ parameters which will filter the request.
 * All API requests are cached with a 4 hour cache to ensure fast performance 
 
 
-## Current features include:
-
-* Shortcode to return events as 'cards' with the event image and details
-* Shortcode to return events in a 'list' group by date
-* Shortcode to return a full month calendar, for the current month or a date
-* Shortcode to return groups as 'cards' with the group image and details
-* All API requests are cached with a 4 hour cache to ensure fast performance 
-
-
 ## Support
 
 If you have a problem or a feature request, please send a message to the author.
@@ -41,8 +32,9 @@ If you have a problem or a feature request, please send a message to the author.
 ## Demo
 
 Currently there is no demo site, but the Features Events on https://www.cambray.org/,
-the Small Groups list on https://www.cambray.org/connect/smallgroups/ and the
-events list on https://www.cambray.org/whats-on/ each use this plugin on a live church site.
+the Small Groups list on https://www.cambray.org/connect/smallgroups/, the
+events list on https://www.cambray.org/whats-on/ and the calendar on
+https://www.cambray.org/whats-on/calendar each use this plugin on a live church site.
 
 
 ## Contributions
@@ -75,8 +67,8 @@ but this can be overridden by adding the `date_end` parameter.
 * For the *Calendar shortcode* place the shortcode into a page or post or into a shortcode block.
 The shortcode will look like: `[cs-calendar church_name="mychurch"]` (where `mychurch` is the name of
 your church used to get into your churchsuite). The only parameter that might be used with this apart
-from `church_name` is `date_from` which will can be any date in the month to be displayed in the format
-`2025-01-15`.
+from `church_name` is `date_from` which will can be any date which will identify the month to be
+displayed - so `2025-01-15` and `2025-01-30` will both display the month January in 2025.
 * For the *Smallgroups shortcode*, place the shortcode into a page or post or into a shortcode block.
 The shortcode will be: `[cs-smallgroups church_name="mychurch"]` (where `mychurch` is the name of your
 church.  The more limited set of parameters provided by ChurchSuite for small groups can all be used. 
@@ -125,6 +117,13 @@ None as yet
 
 
 # Changelog
+
+## 1.0.2
+**2025-03-03**
+* CSS and HTML changes to allow the dates to be better formatted in the small responsive calendar display
+* Minor changes to respond to two problems reported by the Wordpress plugin checker
+* Change to the main plugin name to fit with requirements for inclusion on the Wordpress Plugin Directory
+* Changes to the README files to reflect the version bump
 
 ## 1.0.1
 **2025-02-27**
