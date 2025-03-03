@@ -1,3 +1,18 @@
+:root {
+	--cs-background-color: #ffffff;
+	--cs-primary-color: #3a76ca;
+	--cs-text-color: #303030;
+	--cs-text-on-primary-color: #ffffff;
+	--cs-text-lighter-color: #555555;
+	--cs-text-lightest-color: #808080;
+	--cs-gliph-color: #999999;
+	--cs-border-darker-color: #808080;
+	--cs-border-color: #c0c0c0;
+	--cs-border-lighter-color: #e0e0e0;
+	--cs-light-grey-background-color: #f3f3f3;
+	--cs-today-background-color: #ffffef;
+}
+
 div.cs-row {
 	/* A container to display the event 'cards' horizontally */
 	display: flex;
@@ -10,7 +25,7 @@ div.cs-card {
 	/* Add shadows to create the "card" effect */
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	transition: 0.3s;
-	background-color: white;
+	background-color: var(--cs-background-color);
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -74,7 +89,7 @@ span.cs-date-gliph::before {
 	content: "\f133";
 	font-family: "FontAwesome";
 	padding-right: 0.5rem;
-	color: #999999;
+	color: var(--cs-gliph-color);
 }
 
 div.cs-time { /* no formatting at present */ }
@@ -83,7 +98,7 @@ span.cs-time-gliph::before {
 	content: "\f017";
 	font-family: "FontAwesome";
 	padding-right: 0.5rem;
-	color: #999999;
+	color: var(--cs-gliph-color);
 }
 
 div.cs-location { /* no formatting at present */ }
@@ -92,14 +107,14 @@ span.cs-location-gliph::before {
 	content: "\f041";
 	font-family: "FontAwesome";
 	padding-right: 0.7rem;
-	color: #999999;
+	color: var(--cs-gliph-color);
 }
 
 div.cs-address,
 div.cs-description {
     font-size: 0.8rem;
     line-height: 1.25;
-	color: #555555;
+	color: var(--cs-text-lighter-color);
 	margin: 1rem 0;
 }
 
@@ -117,8 +132,8 @@ div.cs-event-list div.cs-event-column {
 }
 
 div.cs-event-list div.cs-date {
-    background-color: #3a76ca;
-    color: white;
+    background-color: var(--cs-primary-color);
+    color: var(--cs-text-on-primary-color);
     padding: 5px 5px;
     max-width: 3.5rem;
     text-align: center;
@@ -144,7 +159,7 @@ div.cs-event-list div.cs-date .cs-year {
 }
 
 div.cs-event-list div.cs-compact-event {
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--cs-border-lighter-color);
     border-radius: 5px;
     font-size: 0.9rem;
     line-height: 1rem;
@@ -169,7 +184,7 @@ div.cs-calendar div.cs-event-status-pending {
 
 div.cs-event-list div.cs-event-status-cancelled,
 div.cs-calendar div.cs-event-status-cancelled {
-	color: #808080;
+	color: var(--cs-text-lightest-color);
 }
 
 div.cs-event-list div.cs-event-status-cancelled div.cs-event-name,
@@ -204,7 +219,7 @@ div.cs-calendar-month-header {
 
 div.cs-calendar-table table,
 div.cs-calendar-table table td {
-    border: 1px solid #C0C0C0;
+    border: 1px solid var(--cs-border-color);
     border-collapse: collapse;
     padding: 0 0;
     margin: 0 0;
@@ -215,7 +230,7 @@ div.cs-calendar-table table td {
 }
 
 div.cs-calendar-table table th {
-    border: 1px solid #3a76ca;
+    border: 1px solid var(--cs-primary-color);
 }
 
 tr.cs-calendar-days-header th {
@@ -223,17 +238,17 @@ tr.cs-calendar-days-header th {
 	width: 14.3%;
 	font-weight: normal;
 	text-align: center;
-	background-color: #3A76CA;
-	color: #FFFFFF;
+	background-color: var(--cs-primary-color);
+	color: var(--cs-text-on-primary-color);
 	padding: 0.7rem 0.5rem;
 }
 
 td.cs-calendar-outside-month {
-	background-color: #f3f3f3;
+	background-color: var(--cs-light-grey-background-color);
 }
 
 div.cs-calendar-table table td.cs-calendar-today {
-	background-color: #FFFFEF;
+	background-color: var(--cs-today-background-color);
 	box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 
@@ -255,13 +270,13 @@ td.cs-calendar-date-cell div.cs-date.cs-first-day span.cs-month {
 
 td.cs-calendar-date-cell div.cs-date {
     font-weight: bold;
-    color: #3a76ca;
+    color: var(--cs-primary-color);
     padding: 0.35rem 0.35rem;
 }
 
 td.cs-calendar-date-cell.cs-calendar-today div.cs-date {
-	color: white;
-	background-color: #3a76ca;
+	color: var(--cs-text-on-primary-color);
+	background-color: var(--cs-primary-color);
 }
 
 td.cs-calendar-date-cell div.cs-calendar-date-cell-inner {
@@ -291,7 +306,7 @@ div.cs-calendar-event div.cs-event-name {
 
 div.cs-calendar-event .cs-event-hover-block {
     display: none;
-    background-color: white;
+    background-color: var(--cs-background-color);
     box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 
@@ -300,14 +315,14 @@ div.cs-calendar-event button.cs-clickable-caret{
 	background-color: transparent;
 	border: none;
 	font-size: 1rem;
-	color: #303030;
+	color: var(--cs-text-color);
 }
 
 div.cs-calendar-event .cs-event-hover-block button.cs-clickable-caret {
 	float: right;
-	color: #303030;
-	background-color: #f0f0f0;
-	border: 1px solid #d0d0d0;
+	color: var(--cs-text-color);
+	background-color: var(--cs-light-grey-background-color);
+	border: 1px solid var(--cs-border-lighter-color);
 	border-radius: 3px;
 	font-size: 0.7rem;
 }
@@ -315,8 +330,9 @@ div.cs-calendar-event .cs-event-hover-block button.cs-clickable-caret {
 div.cs-calendar-event .cs-event-hover-block.cs-event-hover-reveal {
 	position: absolute;
 	padding: 1rem;
-	border: 1px solid #888;
-	width: 20rem;
+	border: 1px solid var(--cs-border-darker-color);
+	width: 280px;
+	overflow: hidden;
 	display: block;
 	z-index: 1;
 	left: auto;
@@ -338,11 +354,15 @@ div.cs-calendar-event .cs-event-hover-block .cs-address {
 }
 
 div.cs-calendar-event .cs-event-hover-block .cs-description {
-	margin: 0.7rem 0 0.7rem 0;
+	margin: 0.7rem 0 0 0;
 	word-wrap: break-word;
-	max-height: 5em;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	overflow: scroll;
+	font-size: 0.8rem;
+	max-height: 150px;
+}
+
+div.cs-calendar-event .cs-event-hover-block .cs-description p {
+	font-size: 0.8rem;
 }
 
 @media screen and (max-width: 700px) {  
@@ -385,8 +405,8 @@ div.cs-calendar-event .cs-event-hover-block .cs-description {
 	}
 
 	div.cs-calendar-table table.cs-responsive-table td.cs-calendar-date-cell div.cs-date {
-		background-color: #3a76ca;
-		color: white;
+		background-color: var(--cs-primary-color);
+		color: var(--cs-text-on-primary-color);
 		padding: 5px 5px;
 		width: 3.5rem;
 		max-width: 3.5rem;

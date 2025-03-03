@@ -118,6 +118,13 @@ None as yet
 
 # Changelog
 
+**2025-03-03**
+* Added Event Categories to cs_event class, and the inclusion of an event category class
+  to the html output by the event calendar.
+* Added scrolling to the event description within the pop-up
+* Added an additional control on font-size of <p> tags within the event description to
+  prevent theme definitions of <p> creating very large text unless the user overrides.
+
 ## 1.0.2
 **2025-03-03**
 * CSS and HTML changes to allow the dates to be better formatted in the small responsive calendar display
