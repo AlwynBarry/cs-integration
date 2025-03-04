@@ -170,5 +170,15 @@ class Cs_Integration_Public {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/cs-integration-public.js', array(), $this->version, false );
 
 	}
+	
+	/**
+	 * Register a filter to add a 'cs-date' parameter in queries for the shortcodes to use
+	 *
+	 * @since 1.0.2
+     */
+    public function query_vars_filter( $vars ) {
+      $vars[] = "cs-date";
+      return $vars;
+    }
 
 }

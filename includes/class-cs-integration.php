@@ -177,10 +177,14 @@ class Cs_Integration {
 	private function define_public_hooks() {
 
 		$plugin_public = new Cs_Integration_Public( $this->get_plugin_name(), $this->get_version() );
+		
+		/* Add the filters */
+		$this->loader->add_filter( 'query_vars', $plugin_public, 'query_vars_filter' );
 
+		/* Load the shortcode styles */
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 
-		/* No scripts are used in this plugin */
+		/* Load the shortcode scripts */
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		/* Load the shortcode hooks */

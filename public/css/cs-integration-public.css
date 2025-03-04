@@ -217,6 +217,19 @@ div.cs-calendar-month-header {
 	margin-bottom: 1rem;
 }
 
+
+div.cs-calendar-month-nav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+div.cs-calendar-month-nav span.cs-calendar-previous-link,
+div.cs-calendar-month-nav span.cs-calendar-next-link { 
+    display: block;
+}
+
 div.cs-calendar-table table,
 div.cs-calendar-table table td {
     border: 1px solid var(--cs-border-color);

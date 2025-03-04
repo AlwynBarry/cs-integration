@@ -29,8 +29,9 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
  * To call the shortcode, you must supply the church name used in the normal ChurchSuite
  * web url (e.g. from https://mychurch.churchsuite.com/ - 'mychurch' is the name to supply)
  * Use the church_name="mychurch" parameter to supply the church name.  You may also
- * provide a month="yyyy-mm" parameter to identify the month of the events you want to display.
- * You can also use any of the event parameters provided by the churchsuite API, listed at:
+ * provide a date_start="yyyy-mm-dd" parameter to identify a date in the month of
+ * the events you want to display. You can also use the event parameters provided
+ * by the churchsuite API, though the date_end, num_results and merge parameters are overridden.
  * https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md#calendar-json-feed
  *
  * @link       https://https://github.com/AlwynBarry
@@ -47,7 +48,9 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 */ 
 	protected readonly \DateInterval $one_day;
 	protected readonly \DateInterval $one_week;
-
+	protected readonly \DateInterval $one_month;
+	protected readonly string $page_url;
+	
 	protected \DateTime $today;
 	protected \DateTime $requested_date;
 	protected \DateTime $month_start;
@@ -65,20 +68,43 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 * 								Mandatory params: church_name - the ChurchSuite recognised name of the church
 	 */
 	public function __construct( $atts ) {
+	    // Set the values always required by this shortcode
+	    $this->page_url = get_permalink();
 		$this->one_day = \DateInterval::createFromDateString( '1 day' );
 		$this->one_week = \DateInterval::createFromDateString( '1 week' );
+		$this->one_month = \DateInterval::createFromDateString( '1 month' );		
 		$this->today = new \DateTime();
 		$this->today->setTime( 0, 0 );
-		$this->requested_date = ( isset( $atts[ 'date_from' ] ) ) ? $atts[ 'date_from' ] : clone $this->today;
+		
+		// Set the requested base date.  This either comes from the page query
+		// or, if there is an error with the date supplied by the page query or
+		// no page query date, we check for a date_start attribute.  If the
+		// date_start attribute is not correctly formed, we
+		$query_value = get_query_var('cs-date');
+		if ( ( $query_value !== '' ) && ( $date = \DateTime::createFromFormat( "Y-m-d", $query_value ) ) ) {
+		    $this->requested_date = $date;
+		} else {
+		    // Try to see if we have a valid Y-m-d date
+		    $atts_value = ( isset( $atts[ 'date_start' ] ) ) ? \DateTime::createFromFormat( "Y-m-d", $atts[ 'date_start' ] ) : false;
+		    // Set the requested date to the date_start date of valid, or today's date if not
+		    $this->requested_date = ( $atts_value !== false ) ? $atts_value : clone $this->today;
+		}
 		$this->requested_date->setTime( 0, 0 );
+
+		// Create the other date values relative to the requested date
+		// These date values are used to request and format the calendar
 		$this->month_start = self::get_month_start( $this->requested_date );
 		$this->month_end = self::get_month_end( $this->requested_date ); 
 		$this->date_from = self::get_sunday_before_month( $this->month_start ); 
 		$this->date_to = self::get_saturday_after_month( $this->month_start );
+
+		// Override or set the atts we need so we get the events for this month
 		$atts[ 'date_start' ] ??= $this->date_from->format( 'Y-m-d' );
 		$atts[ 'date_end' ] ??= $this->date_to->format( 'Y-m-d' );
 		$atts[ 'num_results' ] = '0';
 		$atts[ 'merge' ] = 'show_all';
+
+		// Now we can call the parent constructor to set all other attributes
 		parent::__construct( $atts, ChurchSuite::EVENTS );
 	}
 
@@ -161,6 +187,26 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 		return ( $date == $this->today );
 	}
 
+	/* 
+	 * Returns html for the previous month link
+	 *
+	 * @since 1.0.2
+	 */
+	protected function get_previous_month_link() : string {
+	    $date = ( clone $this->month_start )->sub( $this->one_month );
+	    return '<a href="' . $this->page_url . '/?cs-date=' . $date->format('Y-m-d') . '">' . __( 'Previous' ) . '</a>';
+	}
+
+	/* 
+	 * Returns html for the next month link
+	 *
+	 * @since 1.0.2
+	 */
+	protected function get_next_month_link() : string {
+	    $date = ( clone $this->month_start )->add( $this->one_month );
+	    return '<a href="' . $this->page_url . '/?cs-date=' . $date->format('Y-m-d') . '">' . __( 'Next' ) . '</a>';
+	}
+
 	/*
 	 * Returns the top of the month table with the month name and the day headers 
 	 *
@@ -170,11 +216,15 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 */
 	protected function get_month_table_top( \DateTime $date ) : string {
 		// Output the month header - the locale sensitive name of the month
-		$output = '<div class="cs-calendar-month-header">' . $date->format( 'F' ) . '</div>' . "\n";
-		$output .= '<div class="cs-calendar-table">' . "\n";
-		$output .= '  <table class="cs-responsive-table">' . "\n";
-		$output .= '    <thead>' . "\n";
-		$output .= '      <tr class="cs-calendar-days-header">' . "\n";
+		$output = '<div class="cs-calendar-month-header">' . $date->format( 'F' ) . '</div>' . "\n"
+		        . '<div class="cs-calendar-month-nav">'
+		        . '  <span class="cs-calendar-previous-link">'. $this->get_previous_month_link() . '</span>'
+		        . '  <span class="cs-calendar-next-link">'. $this->get_next_month_link() . '</span>'
+		        . '</div>' . "\n"
+		        . '<div class="cs-calendar-table">' . "\n"
+		        . '  <table class="cs-responsive-table">' . "\n"
+		        . '    <thead>' . "\n"
+		        . '      <tr class="cs-calendar-days-header">' . "\n";
 		
 		// Add the day headers for the table using the week within which is the supplied date
 		// Doing this computationally ensures that we have localised day names produced.
@@ -187,8 +237,8 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 		}
 
 		// Output the end of the table row and header
-		$output .= '      </tr>' . "\n";
-		$output .= '    </thead>'. "\n";
+		$output .= '      </tr>' . "\n"
+		         . '    </thead>'. "\n";
         return $output;
 	}
 
@@ -312,14 +362,14 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 
 }
 
-
 /*
  * Shortcode to be used in the content. Displays the requested events as 'cards' that can be styled.
  *
  * @since 1.0.0
  * @param	array()	$atts	Array supplied by Wordpress of params to the shortcode
  * 							church_name="mychurch" is required - with "mychurch" replaced with your church name
- *							num_results="3" is strongly advised - int range 0..; 0=all, 1.. = number of events specificed
+ *							date_start="2025-01-01" is optional - a date within the month displayed,
+ *                                                                or the current month if omitted
  */
 function cs_calendar_shortcode( $atts ) {
 	return ( new Cs_Calendar_Shortcode( $atts ) )->run_shortcode();
