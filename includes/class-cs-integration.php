@@ -189,6 +189,7 @@ class Cs_Integration {
 
 		/* Load the shortcode hooks */
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
+
 	}
 
 	/**

@@ -217,7 +217,6 @@ div.cs-calendar-month-header {
 	margin-bottom: 1rem;
 }
 
-
 div.cs-calendar-month-nav {
     display: flex;
     flex-flow: row nowrap;
@@ -228,6 +227,54 @@ div.cs-calendar-month-nav {
 div.cs-calendar-month-nav span.cs-calendar-previous-link,
 div.cs-calendar-month-nav span.cs-calendar-next-link { 
     display: block;
+}
+
+div.cs-calendar-month-nav span.cs-calendar-previous-link a,
+div.cs-calendar-month-nav span.cs-calendar-next-link a {
+	position: relative;
+	display: block;
+	margin-right: 18px;
+	padding: 1px 10px 1px 10px;
+	color: var(--cs-text-on-primary-color);
+}
+
+div.cs-calendar-month-nav span.cs-calendar-previous-link a {
+	margin-right: 0px;
+	margin-left: 18px;
+}
+
+div.cs-calendar-month-nav span.cs-calendar-previous-link a:hover,
+div.cs-calendar-month-nav span.cs-calendar-next-link a:hover {
+	background-color: var(--cs-primary-color);
+	color: var(--cs-text-on-primary-color);
+}
+
+div.cs-calendar-month-nav span.cs-calendar-previous-link a::before,
+div.cs-calendar-month-nav span.cs-calendar-next-link a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0px;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+}
+
+div.cs-calendar-month-nav span.cs-calendar-next-link a::after {
+  border-left: 12px solid #3a76ca;
+  right: -12px;
+}
+
+div.cs-calendar-month-nav span.cs-calendar-previous-link a::before {
+  border-right: 12px solid #3a76ca;
+  left: -12px;
+}
+
+div.cs-calendar-month-nav span.cs-calendar-previous-link a:focus,
+div.cs-calendar-month-nav span.cs-calendar-next-link a:focus {
+	border: 0px;
+	box-shadow: 0 0 0 0px transparent;
 }
 
 div.cs-calendar-table table,

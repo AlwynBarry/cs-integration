@@ -86,7 +86,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 		} else {
 		    // Try to see if we have a valid Y-m-d date
 		    $atts_value = ( isset( $atts[ 'date_start' ] ) ) ? \DateTime::createFromFormat( "Y-m-d", $atts[ 'date_start' ] ) : false;
-		    // Set the requested date to the date_start date of valid, or today's date if not
+		    // Set the requested date to the date_start date if valid, or today's date if not
 		    $this->requested_date = ( $atts_value !== false ) ? $atts_value : clone $this->today;
 		}
 		$this->requested_date->setTime( 0, 0 );
