@@ -1,8 +1,8 @@
 # Integration for ChurchSuite
-* Contributors: Alwyn Barry
+* Contributors: dramb
 * Tags: Events, ChurchSuite, Featured
 * Requires at least: 6.4
-* Tested up to: 6.7.2
+* Tested up to: 6.7
 * Stable tag: 1.0.2
 * License: GPLv2 or later
 

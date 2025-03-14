@@ -101,7 +101,7 @@ use amb_dev\CSI\Cs_Group as Cs_Group;
 
 		// Display the group name in a link if a link is provided
 		$output .= '  <div class="cs-group-name">' .
-					( ( $this->cs_group->is_URL() ) ? '<a class="cs-group-link" href="' . $this->cs_group->get_URL( $this->cs ) . '">' : '') .
+					( ( $this->cs_group->is_URL() ) ? '<a class="cs-group-link" target="_blank" href="' . $this->cs_group->get_URL( $this->cs ) . '">' : '') .
 					$this->cs_group->get_name() .
 					( ( $this->cs_group->is_URL() ) ? '</a>' : '' ) .
 					'</div>' . "\n";

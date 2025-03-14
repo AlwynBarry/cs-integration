@@ -157,12 +157,18 @@ class Cs_JSON_API {
         // Fetch the cached response, if any;  If no cached response, get a new JSON response, and
         // if JSON response is returned, convert it to objects, and store the result in the cache
 		if ( false === ( $result = get_transient( $transient_key ) ) ) {
+			// The default result will be '' if there is any error
+			$result = '';
 			// Fetch the JSON data from ChurchSuite using the details supplied to construct the API URL
-			$json_data = @file_get_contents( $api_url );
-			// Change the JSON data into objects of class \stdclass
-			if ( $json_data !== false ) { $result = json_decode($json_data); }
-			// Put the response into the cache if there is data to be stored
-			if ( ( ! is_null( $result ) ) && ( $result !== '' ) ) { set_transient( $transient_key, $result, self::CACHE_TIME ); }
+			$response = wp_remote_get( $api_url );
+			if ( ! is_wp_error( $response ) && isset( $response[ 'response' ][ 'code' ] ) && ( 200 === $response[ 'response' ][ 'code' ] ) ) {
+				// Received a valid response, so extract the JSON part of the response (in the response body)
+				$json_data = wp_remote_retrieve_body( $response );
+				// Change the JSON data into objects of class \stdclass
+				$result = ( $json_data !== '' ) ? json_decode($json_data) : '';
+				// Put the response into the cache if there is data to be stored
+				if ( ( ! is_null( $result ) ) && ( $result !== '' ) ) { set_transient( $transient_key, $result, self::CACHE_TIME ); }
+			}
 		}
 
 		// Result will be null or an array of \stdclass objects

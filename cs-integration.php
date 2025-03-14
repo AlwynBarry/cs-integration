@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Started at version 1.0.0 and uses SemVer - https://semver.org
  * This will be updated it as we release new versions.
  */
-define( 'CS_INTEGRATION_VERSION', '1.0.2' );
+const CS_INTEGRATION_VERSION = '1.0.2';
 
 /**
  * Run the plugin activation. For this plugin this does nothing ... no activation required

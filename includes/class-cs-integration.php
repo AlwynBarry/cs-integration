@@ -72,11 +72,8 @@ class Cs_Integration {
 	 */
 	public function __construct() {
 		// Note: CS_INTEGRATION_VERSION is defined in cs-integration.php
-		if ( defined( 'CS_INTEGRATION_VERSION' ) ) {
-			$this->version = CS_INTEGRATION_VERSION;
-		} else {
-			$this->version = '1.0.0';
-		}
+		$this->version = CS_INTEGRATION_VERSION;
+
 		$this->plugin_name = 'cs-integration';
 
 		$this->load_dependencies();

@@ -50,7 +50,7 @@ div.cs-group {
 
 div.cs-group-image-area,
 div.cs-event-card-image-area {
-	background-image: url("https://www.cambray.org/mp3_sermons/2022/01/cambray-front-sky-CBC-1024x576-1.jpg");
+	background-image: linear-gradient(to bottom right, var(--cs-primary-color), black);
 	background-size: cover;
 	height: 186px;
 }

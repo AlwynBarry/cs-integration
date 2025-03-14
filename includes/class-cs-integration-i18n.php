@@ -35,11 +35,11 @@ class Cs_Integration_i18n {
 	 */
 	public function load_plugin_textdomain() {
 
-		load_plugin_textdomain(
-			'cs-integration',
-			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
-		);
+		/*
+		 * Apparently since WP 6.7 this is no longer needed, according to the Wordpress Directory submission comments
+		 *
+		 * load_plugin_textdomain( 'cs-integration', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/' );
+		 */
 
 	}
 

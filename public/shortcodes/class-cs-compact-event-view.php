@@ -74,7 +74,7 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 
 		// Display the event name in a link if a link is provided
 		$output .= '    <div class="cs-event-name">' .
-					( ( $this->cs_event->is_URL() ) ? '<a class="cs-event-link" href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
+					( ( $this->cs_event->is_URL() ) ? '<a class="cs-event-link" target="_blank" href="' . $this->cs_event->get_URL( $this->cs ) . '">' : '' ) .
 					$this->cs_event->get_name() .
 					( ( $this->cs_event->is_URL() ) ? '</a>' : '' ) .
 					'</div>' . "\n";
