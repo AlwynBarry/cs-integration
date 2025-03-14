@@ -3,7 +3,7 @@
 * Tags: Events, ChurchSuite, Featured
 * Requires at least: 6.4
 * Tested up to: 6.7
-* Stable tag: 1.0.2
+* Stable tag: 1.0.3
 * License: GPLv2 or later
 
 Integration for ChurchSuite is a plugin to enable display of data from ChurchSuite JSON feeds
