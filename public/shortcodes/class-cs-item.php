@@ -110,7 +110,7 @@ abstract class Cs_Item {
 	 */
 	protected function sanitize_name( \stdclass $item_obj ) : string {
 		return ( isset( $item_obj->name ) && ( $item_obj->name !== '' ) ) 
-					? trim ( strip_tags( $item_obj->name ) )
+					? trim ( wp_strip_all_tags( $item_obj->name ) )
 					: 'Unnamed';
 	}
 
@@ -128,6 +128,10 @@ abstract class Cs_Item {
 		// Check for a valid image URL ('images' will be null or an empty array if invalid
 		if ( isset( $item_obj->images->lg->url ) && ( $item_obj->images->lg->url !== '' ) ) {
 			$url = $item_obj->images->lg->url;
+			// NB - though PluginChecker identifies this as a problem, we cannot use
+			//      wp_get_attachment_image() because the image is that referred to
+			//		by the JSON data of an image which is hosted on ChurchSuite. We
+			//      have mitigated this by using FILTER_VALIDATE_URL on the URL used.
 			if ( filter_var( $url, FILTER_VALIDATE_URL ) ) { $result = '<img src="'. $url . '">'; }
 		}
 		return $result;

@@ -179,7 +179,7 @@ use amb_dev\CSI\Cs_Item as Cs_Item;
 	 */
 	protected function sanitize_category( \stdclass $event_obj ) : string {
 		return ( isset( $event_obj->category->name ) ) 
-					? trim( strip_tags( $event_obj->category->name ) )
+					? trim( wp_strip_all_tags( $event_obj->category->name ) )
 					: '';
 	}
 

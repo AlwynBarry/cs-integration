@@ -194,7 +194,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 */
 	protected function get_previous_month_link() : string {
 	    $date = ( clone $this->month_start )->sub( $this->one_month );
-	    return '<a href="' . $this->page_url . '/?cs-date=' . $date->format('Y-m-d') . '">' . __( 'Previous' ) . '</a>';
+	    return '<a href="' . $this->page_url . '/?cs-date=' . $date->format('Y-m-d') . '">' . __( 'Previous', 'cs-integration' ) . '</a>';
 	}
 
 	/* 
@@ -204,7 +204,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 */
 	protected function get_next_month_link() : string {
 	    $date = ( clone $this->month_start )->add( $this->one_month );
-	    return '<a href="' . $this->page_url . '/?cs-date=' . $date->format('Y-m-d') . '">' . __( 'Next' ) . '</a>';
+	    return '<a href="' . $this->page_url . '/?cs-date=' . $date->format('Y-m-d') . '">' . __( 'Next', 'cs-integration' ) . '</a>';
 	}
 
 	/*
