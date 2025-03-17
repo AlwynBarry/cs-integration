@@ -58,7 +58,7 @@ Currently there is no demo site, but you can view examples on a church website:
 This plugin relies on information provided by ChurchSuite using their 'embed'
 JSON feed.  Details of this JSON feed can be found here:
 
-	`https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md`
+        https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md
 
 
 ## Installation
@@ -89,9 +89,9 @@ JSON feed.  Details of this JSON feed can be found here:
 * For the *Event Cards shortcode*, place the shortcode into a page or post or
   into a shortcode block. The shortcode will be:
 
-		`[cs-event-cards church_name="mychurch" num_results="3"]`
+        [cs-event-cards church_name="mychurch" num_results="3"]
 
-    (where `mychurch` is the name of your church and `3` is changed to the
+    where `mychurch` is the name of your church and `3` is changed to the
     number of future featured events you need in a page or post.  Use the
     parameter `featured="1"` to obtain only featured events.  Because your
     calendar will have _many_ events, make sure you include `num_results`
@@ -105,7 +105,7 @@ JSON feed.  Details of this JSON feed can be found here:
 * For the *Event List shortcode*, place the shortcode into a page or post
   or into a shortcode block. The shortcode will be:
 
-		`[cs-event-list church_name="mychurch" num_results="10"]`
+		[cs-event-list church_name="mychurch" num_results="10"]
 
 	The comments above about parameters also apply to this shortcode.  By
 	default only a maximum of 5 days events are returned, but this can be
@@ -114,7 +114,7 @@ JSON feed.  Details of this JSON feed can be found here:
 * For the *Calendar shortcode* place the shortcode into a page or post or into a
   shortcode block. The shortcode will look like:
 
-		`[cs-calendar church_name="mychurch"]`
+		[cs-calendar church_name="mychurch"]
 
 	(where `mychurch` is the name of your church used to get into your churchsuite).
 	The only parameter that might be used with this apart from `church_name` is
@@ -125,12 +125,12 @@ JSON feed.  Details of this JSON feed can be found here:
 * For the *Smallgroups shortcode*, place the shortcode into a page or post or into
   a shortcode block. The shortcode will be:
 
-		`[cs-smallgroups church_name="mychurch"]`
+		[cs-smallgroups church_name="mychurch"]
 
 	(where `mychurch` is the name of your church.  The more limited set of
 	parameters provided by ChurchSuite for small groups can all be used. 
 
-See https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md#calendar-json-feed
+See `https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md#calendar-json-feed`
 for a full list of parameters that can be used.
 
 
@@ -152,19 +152,19 @@ file in the top comment.
 	ChurchSuite JSON api url - try entering the following URL in a browser
 	with your church name instead of `mychurch`:
 
-		`https://mychurch.churchsuite.com/embed/calendar/json?num_results=3`
+		https://mychurch.churchsuite.com/embed/calendar/json?num_results=3
 
 - How do I add my church so that I get the JSON feed for my church?
 
 	You must use the shortcode `church_name` parameter:
 
-	`[cs-event-cards church_name="mychurch" num_results="3"]`
+	    [cs-event-cards church_name="mychurch" num_results="3"]
 
 - I want to limit the number of events in the shortcode.
 
 	You can use a shortcode parameter for showing a particular number of events:
 
-	`[cs-events-list church_name="mychurch" num_results="6"]`
+	    [cs-events-list church_name="mychurch" num_results="6"]
 
 - I want to change how the output looks:
 
