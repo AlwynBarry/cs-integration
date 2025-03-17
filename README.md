@@ -58,13 +58,13 @@ Currently there is no demo site, but you can view examples on a church website:
 This plugin relies on information provided by ChurchSuite using their 'embed'
 JSON feed.  Details of this JSON feed can be found here:
 
-`https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md`
+	`https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md`
 
 
 ## Installation
 
-* From within Wordpress - In thw Wordpress Dashboard, use the menu to go to
-  Plugins, and from there choose 'Add new plugin'.  Search for `churchsuite`
+* From within Wordpress - In the Wordpress Dashboard use the menu to go to
+  Plugins and from there choose 'Add new plugin'.  Search for `churchsuite`
   and then look for this plugin.  Select the 'install' button on the plugin
   to install it, and once installed use the 'activate' link to activate the
   plugin.
