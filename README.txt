@@ -13,9 +13,9 @@ Integration for ChurchSuite is a plugin to enable display of data from ChurchSui
 
 Integration for ChurchSuite (AKA CS Integration) allows you to display certain
 data from ChurchSuite on your Wordpress website without resorting to embedding
-iframes.  This plugin provides shortcodes that are easy to drop into any page
-or post.  Each shortcode will, behind the scenes, requests data from your
-ChurchSuite feed, and will displays the data returned in a similar way to the
+iframes. This plugin provides shortcodes that are easy to drop into any page
+or post. Each shortcode will, behind the scenes, request data from your
+ChurchSuite feed, and will display the data returned in a similar way to the
 usual ChurchSuite iframes, but natively to your website.  Many aspects of the
 display can be modified in your theme to make the display match your website
 theme. The shortcodes allow you to use a range of query parameters so that you
@@ -46,6 +46,7 @@ If you have a problem or a feature request, please send a message to the author.
 ## Demo
 
 Currently there is no demo site, but you can view examples on a church website:
+
 - the Features Events on https://www.cambray.org/,
 - the Small Groups list on https://www.cambray.org/connect/smallgroups/,
 - the events list on https://www.cambray.org/whats-on/
@@ -60,7 +61,7 @@ JSON feed.  Details of this JSON feed can be found here:
 `https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md`
 
 
-# Installation
+## Installation
 
 * From within Wordpress - In thw Wordpress Dashboard, use the menu to go to
   Plugins, and from there choose 'Add new plugin'.  Search for `churchsuite`
@@ -70,73 +71,77 @@ JSON feed.  Details of this JSON feed can be found here:
 
 * If you want to install from github:
 
-- Download from 'releases'
-- Rename the zip file downloaded 'cs-integration.zip' (i.e. remove any version
-  info in the filename)
-- In Wordpress use the Install New Plugin page to upload the zip file, or
-  alternatively, unpack and upload the cs-integration directory to your
-  '/wp-content/plugins/' directory.
-- Once you have done either of the above, Activate the plugin through the
-  'Plugins' page in the WordPress dashboard.
+	- Download from 'releases'
+	- Rename the zip file downloaded `cs-integration.zip` (i.e. remove any
+	  version info in the filename)
+	- In Wordpress use the Install New Plugin page to upload the zip file, or
+	  alternatively, unpack and upload the cs-integration directory to your
+	  `/wp-content/plugins/` directory.
+	- Once you have done either of the above, Activate the plugin through the
+	  'Plugins' page in the WordPress dashboard.
 
 * Once you have used either method to install the plugin, you need to then
   add a shortcode (see examples below) to your wordpress posts or pages where
   you need them
 
-# Usage
+
+## Usage
 * For the *Event Cards shortcode*, place the shortcode into a page or post or
-into a shortcode block. The shortcode will be:
+  into a shortcode block. The shortcode will be:
 
     `[cs-event-cards church_name="mychurch" num_results="3"]`
 
-(where `mychurch` is the name of your church and `3` is changed to the number of
-future featured events you need in a page or post.  Use the parameter `featured="1"`
-to obtain only featured events.  Because your calendar will have _many_ events, make
-sure you include `num_results` to get the number of events you want.
+    (where `mychurch` is the name of your church and `3` is changed to the
+    number of future featured events you need in a page or post.  Use the
+    parameter `featured="1"` to obtain only featured events.  Because your
+    calendar will have _many_ events, make sure you include `num_results`
+    to get the number of events you want.
 
-If you want events on a specific day, use the parameters `date_start` and `date_end`.
-If you want events from a particular Calendar category, use `category=1` where `1`
-is replaced by the category number for the Calendar category you want.
+    If you want events on a specific day, use the parameters `date_start`
+    and `date_end`. If you want events from a particular Calendar category,
+    use `category=1` where `1` is replaced by the category number for the
+    Calendar category you want.
 
-* For the *Event List shortcode*, place the shortcode into a page or post or into
-a shortcode block. The shortcode will be:
+* For the *Event List shortcode*, place the shortcode into a page or post
+  or into a shortcode block. The shortcode will be:
 
 	`[cs-event-list church_name="mychurch" num_results="10"]`
 
-The comments above about parameters also apply to this shortcode.  By default only
-a maximum of 5 days events are returned, but this can be overridden by adding the
-`date_end` parameter.
+	The comments above about parameters also apply to this shortcode.  By
+	default only a maximum of 5 days events are returned, but this can be
+	overridden by adding the `date_end` parameter.
 
 * For the *Calendar shortcode* place the shortcode into a page or post or into a
-shortcode block. The shortcode will look like:
+  shortcode block. The shortcode will look like:
 
 	`[cs-calendar church_name="mychurch"]`
 
-(where `mychurch` is the name of your church used to get into your churchsuite).
-The only parameter that might be used with this apart from `church_name` is
-`date_from` which will can be any date which will identify the month to be displayed
-- so `2025-01-15` and `2025-01-30` will both display the month January in 2025.
+	(where `mychurch` is the name of your church used to get into your churchsuite).
+	The only parameter that might be used with this apart from `church_name` is
+	`date_from` which will can be any date which will identify the month to be
+	displayed - so `2025-01-15` and `2025-01-30` will both display the month
+	January in 2025.
 
 * For the *Smallgroups shortcode*, place the shortcode into a page or post or into
-a shortcode block. The shortcode will be:
+  a shortcode block. The shortcode will be:
 
 	`[cs-smallgroups church_name="mychurch"]`
 
-(where `mychurch` is the name of your church.  The more limited set of parameters
-provided by ChurchSuite for small groups can all be used. 
+	(where `mychurch` is the name of your church.  The more limited set of
+	parameters provided by ChurchSuite for small groups can all be used. 
 
 See https://github.com/ChurchSuite/churchsuite-api/blob/master/modules/embed.md#calendar-json-feed
 for a full list of parameters that can be used.
 
 
-# License
+## License
 
 The plugin itself is released under the GNU General Public License. A copy of
 this license can be found at the license homepage or in the `cs-integration.php`
 file in the top comment.
 
 
-# Frequently Asked Questions
+## Frequently Asked Questions
 
 - The shortcode produces no output
 
@@ -145,18 +150,19 @@ produce error messages all over your website.  Check that you have supplied
 the correct churchname, or test it with the churchname 'cambray' to see if that
 is the problem.  Check that you can actually get to your ChurchSuite JSON api
 url - try entering the following URL in a browser with your church name instead
-of `mychurch:
+of `mychurch`:
+
 `https://mychurch.churchsuite.com/embed/calendar/json?num_results=3`
 
 - How do I add my church so that I get the JSON feed for my church?
 
-You must use the shortcode `church_name` parameter:
+	You must use the shortcode `church_name` parameter:
 
 	`[cs-event-cards church_name="mychurch" num_results="3"]`
 
 - I want to limit the number of events in the shortcode.
 
-You can use a shortcode parameter for showing a particular number of events:
+	You can use a shortcode parameter for showing a particular number of events:
 
 	`[cs-events-list church_name="mychurch" num_results="6"]`
 
@@ -165,52 +171,52 @@ You can use a shortcode parameter for showing a particular number of events:
 	The output is formatted via css - just override the defaults in your theme
 
 
-# Screenshots
+## Screenshots
 
 None as yet
 
 
-# Changelog
+## Changelog
 **2025-03-17**
 * Change to the README files to make them more readable on the Wordpress
-  Directory and to include install instructions suitable for the directory.
+    Directory and to include install instructions suitable for the directory.
 
 **2025-03-13**
 * Changes to how the JSON feed is read to remove a security vulnerability. Other
-  minor changes to allow for final Wordpress Directory approval.
+    minor changes to allow for final Wordpress Directory approval.
 
-## 1.0.3
+### 1.0.3
 **2025-03-03**
 * Added Event Categories to cs_event class, and the inclusion of an event category
-  class to the html output by the event calendar so that we can colour the events.
+    class to the html output by the event calendar so that we can colour the events.
 * Added scrolling to the event description within the pop-up
 * Added an additional control on font-size of paragraph tags within the event
-  description to prevent theme definitions of for paragraphs causing large text
-  to be displayed within the small calendar cells, unless the user overrides this.
+    description to prevent theme definitions of for paragraphs causing large text
+    to be displayed within the small calendar cells, unless the user overrides this.
 
-## 1.0.2
+### 1.0.2
 **2025-03-03**
 * CSS and HTML changes to allow the dates to be better formatted in the small
-  responsive calendar display
+    responsive calendar display
 * Minor changes to respond to two problems reported by the Wordpress plugin checker
 * Change to the main plugin name to fit with requirements for inclusion on the
-  Wordpress Plugin Directory
+    Wordpress Plugin Directory
 * Changes to the README files to reflect the version bump
 
-## 1.0.1
+### 1.0.1
 **2025-02-27**
 * Added the first of the functionality for the `cs-calendar` shortcode.  Updated
-  `README.md` to reflect these changes.
+    `README.md` to reflect these changes.
 
 **2025-02-25**
 * Changed caching to cache API responses rather than the final HTMl, for security reasons
 * Found that num_results alone causes a 8sec response time, but adding a date_end reduces
-  the API response time to 1.5s regardless of the amount of events returned.  So defaulted
-  the cs-events-list to 5 days just to get reasonable response time. 
+    the API response time to 1.5s regardless of the amount of events returned.  So defaulted
+    the cs-events-list to 5 days just to get reasonable response time. 
 * Added basic i18n support
 * Changed all files to reflect 1.0.1 release status
 
-## 1.0.0
+### 1.0.0
 **2025-02-20**
 * Added caching of responses and displaying cancelled events in the event list correctly
 
@@ -220,9 +226,9 @@ None as yet
 
 **2025-02-11**
 * Major changes to everything to code in the style required for submission to Wordpress
-* - Changed to plugin scaffolding based on WPPB
-* - Change from procedural code to Classes and Objects
+    - Changed to plugin scaffolding based on WPPB
+    - Change from procedural code to Classes and Objects
 
-## 0.0.1
+### 0.0.1
 **2025-02-04**
 * Initial release - really only a test of what was possible
