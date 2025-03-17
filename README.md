@@ -89,7 +89,7 @@ JSON feed.  Details of this JSON feed can be found here:
 * For the *Event Cards shortcode*, place the shortcode into a page or post or
   into a shortcode block. The shortcode will be:
 
-    `[cs-event-cards church_name="mychurch" num_results="3"]`
+		`[cs-event-cards church_name="mychurch" num_results="3"]`
 
     (where `mychurch` is the name of your church and `3` is changed to the
     number of future featured events you need in a page or post.  Use the
@@ -105,7 +105,7 @@ JSON feed.  Details of this JSON feed can be found here:
 * For the *Event List shortcode*, place the shortcode into a page or post
   or into a shortcode block. The shortcode will be:
 
-	`[cs-event-list church_name="mychurch" num_results="10"]`
+		`[cs-event-list church_name="mychurch" num_results="10"]`
 
 	The comments above about parameters also apply to this shortcode.  By
 	default only a maximum of 5 days events are returned, but this can be
@@ -114,7 +114,7 @@ JSON feed.  Details of this JSON feed can be found here:
 * For the *Calendar shortcode* place the shortcode into a page or post or into a
   shortcode block. The shortcode will look like:
 
-	`[cs-calendar church_name="mychurch"]`
+		`[cs-calendar church_name="mychurch"]`
 
 	(where `mychurch` is the name of your church used to get into your churchsuite).
 	The only parameter that might be used with this apart from `church_name` is
@@ -125,7 +125,7 @@ JSON feed.  Details of this JSON feed can be found here:
 * For the *Smallgroups shortcode*, place the shortcode into a page or post or into
   a shortcode block. The shortcode will be:
 
-	`[cs-smallgroups church_name="mychurch"]`
+		`[cs-smallgroups church_name="mychurch"]`
 
 	(where `mychurch` is the name of your church.  The more limited set of
 	parameters provided by ChurchSuite for small groups can all be used. 
@@ -145,14 +145,14 @@ file in the top comment.
 
 - The shortcode produces no output
 
-The default behaviour when there is an error is to give no output rather than
-produce error messages all over your website.  Check that you have supplied
-the correct churchname, or test it with the churchname 'cambray' to see if that
-is the problem.  Check that you can actually get to your ChurchSuite JSON api
-url - try entering the following URL in a browser with your church name instead
-of `mychurch`:
+	The default behaviour when there is an error is to give no output rather
+	than produce error messages all over your website.  Check that you have
+	supplied the correct churchname, or test it with the churchname 'cambray'
+	to see if that is the problem.  Check that you can actually get to your
+	ChurchSuite JSON api url - try entering the following URL in a browser
+	with your church name instead of `mychurch`:
 
-`https://mychurch.churchsuite.com/embed/calendar/json?num_results=3`
+		`https://mychurch.churchsuite.com/embed/calendar/json?num_results=3`
 
 - How do I add my church so that I get the JSON feed for my church?
 
