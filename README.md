@@ -147,30 +147,30 @@ file in the top comment.
 
 ### The shortcode produces no output
 
-	The default behaviour when there is an error is to give no output rather
-	than produce error messages all over your website.  Check that you have
-	supplied the correct churchname, or test it with the churchname 'cambray'
-	to see if that is the problem.  Check that you can actually get to your
-	ChurchSuite JSON api url - try entering the following URL in a browser
-	with your church name instead of `mychurch`:
+The default behaviour when there is an error is to give no output rather
+than produce error messages all over your website.  Check that you have
+supplied the correct churchname, or test it with the churchname 'cambray'
+to see if that is the problem.  Check that you can actually get to your
+ChurchSuite JSON api url - try entering the following URL in a browser
+with your church name instead of `mychurch`:
 
-		https://mychurch.churchsuite.com/embed/calendar/json?num_results=3
+	https://mychurch.churchsuite.com/embed/calendar/json?num_results=3
 
 ### How do I add my church so that I get the JSON feed for my church?
 
-	You must use the shortcode `church_name` parameter:
+You must use the shortcode `church_name` parameter:
 
 	    [cs-event-cards church_name="mychurch" num_results="3"]
 
 ### I want to limit the number of events in the shortcode
 
-	You can use a shortcode parameter for showing a particular number of events:
+You can use a shortcode parameter for showing a particular number of events:
 
-	    [cs-events-list church_name="mychurch" num_results="6"]
+	[cs-events-list church_name="mychurch" num_results="6"]
 
 ### I want to change how the output looks:
 
-	The output is formatted via css - just override the defaults in your theme
+The output is formatted via css - just override the defaults in your theme
 
 
 ## Screenshots
