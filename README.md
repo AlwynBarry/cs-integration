@@ -31,12 +31,31 @@ can display just the data you want for each part of your website.
 * All API requests are cached with a 4 hour cache to ensure fast performance
 
 
-### A little Technical information
+## A little Technical information
 
 For the technical among you: This shortcode works on the 'server side',
 building the response which is delivered to your browser from churchsuite.
 Future updates will provide 'client side' javascript alternative shortcodes
 so that you can choose where the processing is done.
+
+
+### Difference between this plugin and cs-js-integration
+
+We also provide the `cs-js-integration` plugin.  That plugin uses the more
+recent v3 ChurchSuite API which does permit such flexibility because it
+requires you to create a ChurchSuite 'embed configuration' to pass in the
+shortcode call.  It also does all the work on the 'client side' so that
+the client browser holds the cached data and the client browser creates all
+the html for output.  That plugin use Javascript to create the response
+whereas this plugin uses php.  This server-side implementation can be faster
+for many repeated requests, and is less speed dependent on the client
+provision. However the client-side implementation can be faster for an
+individual user. The cs-js-integration plugin uses Alpine.js to output the
+HTML, which means an end user could change the output by changing the HTML
+files without having to get into the php of the plugin. However, the
+Alpine.js code isn't straightforward and so this is likely to be of little
+advantage. Really, it's simply 'horses for courses' - you have the choice
+of which to use!
 
 
 ## Support
