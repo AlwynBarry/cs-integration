@@ -4,20 +4,6 @@ namespace amb_dev\CSI;
 
 
 /**
- * The file that defines the core plugin class
- *
- * This class includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       https://https://github.com/AlwynBarry
- * @since      1.0.0
- *
- * @package    Cs_Integration
- * @subpackage Cs_Integration/includes
- */
-
-
-/**
  * The core plugin class.
  *
  * This is used to define internationalization, admin-specific hooks, and
@@ -26,6 +12,7 @@ namespace amb_dev\CSI;
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
+ * @link       https://https://github.com/AlwynBarry
  * @since      1.0.0
  * @package    Cs_Integration
  * @subpackage Cs_Integration/includes
@@ -122,8 +109,7 @@ class Cs_Integration {
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cs-integration-public.php';
-		
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cs-integration-public.php';	
 
 		$this->loader = new Cs_Integration_Loader();
 

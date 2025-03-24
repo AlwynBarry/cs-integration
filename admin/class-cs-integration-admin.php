@@ -5,22 +5,15 @@ namespace amb_dev\CSI;
 
 /**
  * The admin-specific functionality of the plugin.
- *
- * @link       https://https://github.com/AlwynBarry
- * @since      1.0.0
- *
- * @package    Cs_Integration
- * @subpackage Cs_Integration/admin
- */
-
-/**
- * The admin-specific functionality of the plugin.
  * 
  * This plugin defines shortcodes and so does not have admin functionality.
  * This class has been left in case of future expansion / update to add admin functions.
  * 
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
+ *
+ * @link       https://https://github.com/AlwynBarry
+ * @since      1.0.0
  *
  * @package    Cs_Integration
  * @subpackage Cs_Integration/admin

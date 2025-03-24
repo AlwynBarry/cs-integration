@@ -2,21 +2,13 @@
 
 namespace amb_dev\CSI;
 
-/**
- * Fired during plugin deactivation
- *
- * @link       https://https://github.com/AlwynBarry
- * @since      1.0.0
- *
- * @package    Cs_Integration
- * @subpackage Cs_Integration/includes
- */
 
 /**
  * Fired during plugin deactivation.
  *
  * This class defines all code necessary to run during the plugin's deactivation.
  *
+ * @link       https://https://github.com/AlwynBarry
  * @since      1.0.0
  * @package    Cs_Integration
  * @subpackage Cs_Integration/includes

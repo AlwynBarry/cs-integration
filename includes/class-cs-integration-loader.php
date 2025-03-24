@@ -2,15 +2,6 @@
 
 namespace amb_dev\CSI;
 
-/**
- * Register all actions and filters for the plugin
- *
- * @link       https://https://github.com/AlwynBarry
- * @since      1.0.0
- *
- * @package    Cs_Integration
- * @subpackage Cs_Integration/includes
- */
 
 /**
  * Register all actions and filters for the plugin.
@@ -19,6 +10,8 @@ namespace amb_dev\CSI;
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
+ * @link       https://https://github.com/AlwynBarry
+ * @since      1.0.0
  * @package    Cs_Integration
  * @subpackage Cs_Integration/includes
  * @author     Alwyn Barry <alwyn_barry@yahoo.co.uk>
