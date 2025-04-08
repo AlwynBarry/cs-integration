@@ -6,19 +6,12 @@ namespace amb_dev\CSI;
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://https://github.com/AlwynBarry
- * @since      1.0.0
- *
- * @package    Cs_Integration
- * @subpackage Cs_Integration/public
- */
-
-/**
- * The public-facing functionality of the plugin.
- *
  * Defines the plugin name, version, loads the public dependencies,
  * and enqueues the public-facing stylesheet.
  *
+ * @link       https://https://github.com/AlwynBarry
+ * @since      1.0.0
+ * 
  * @package    Cs_Integration
  * @subpackage Cs_Integration/public
  * @author     Alwyn Barry <alwyn_barry@yahoo.co.uk>
@@ -34,6 +27,7 @@ class Cs_Integration_Public {
 	 */
 	private $plugin_name;
 
+
 	/**
 	 * The version of this plugin.
 	 *
@@ -43,11 +37,10 @@ class Cs_Integration_Public {
 	 */
 	private $version;
 
+
 	/**
-	 * The Class Names and file names of the classes for communication to the ChurchSuite JSON API,
-	 * - the model classes for the data returned in the JSON responses,
-	 * - the view classes for display of the data,
-	 * - the classes which give the behaviour of the shortcodes,
+	 * The Class Names and file names of the classes for communication
+	 * to the ChurchSuite JSON API,
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -56,6 +49,20 @@ class Cs_Integration_Public {
 	private const CS_CLASS_NAMES = array(
 			'ChurchSuite' => 'class-churchsuite.php',
 			'Cs_JSON_API' => 'class-cs-json-api.php',
+		);
+
+		
+	/**
+	 * The Class Names and file names of the classes for the shortcodes 
+	 * - the model classes for the churchsuite event and group data,
+	 * - the view classes for display of the data,
+	 * - the classes which give the behaviour of the shortcodes,
+	 *
+	 * @since    1.0.4
+	 * @access   private
+	 * @const    array of string    $CS_CLASS_NAMES    The class names of the dependencies needed.
+	 */
+	private const SHORTCODE_CLASS_NAMES = array(
 			'Cs_Item' => 'class-cs-item.php',
 			'Cs_Event' => 'class-cs-event.php',
 			'Cs_Group' => 'class-cs-group.php',
@@ -69,6 +76,7 @@ class Cs_Integration_Public {
 			'Cs_Calendar_Shortcode' => 'class-cs-calendar-shortcode.php',
 			'Cs_SmallGroups_Shortcode' => 'class-cs-smallgroups-shortcode.php',
 		);
+
 
 	/*
 	 * The shortcode names and their corresponding static functions that
@@ -84,6 +92,7 @@ class Cs_Integration_Public {
 			'cs-calendar' => 'cs_calendar_shortcode',
 			'cs-smallgroups' => 'cs_smallgroups_shortcode'
 		);
+
 
 	/**
 	 * Initialize the class and set its properties.
@@ -118,9 +127,17 @@ class Cs_Integration_Public {
 	private function load_dependencies() {
 
 		/**
-		 * Dependencies: the classes that hold and process the JSON API, it's data response and to form the views on the data
+		 * Dependencies: the classes that hold and process the JSON API
 		 */
 		foreach ( Cs_Integration_Public::CS_CLASS_NAMES as $class_name => $file_name) {
+			require_once plugin_dir_path( dirname(__FILE__) ) . 'public/shortcodes/' . $file_name;
+		}
+		
+		/**
+		 * Dependencies: the classes that provide the shortcodes by creating
+		 * a data model from the JSON response and to form the views on the data
+		 */
+		foreach ( Cs_Integration_Public::SHORTCODE_CLASS_NAMES as $class_name => $file_name) {
 			require_once plugin_dir_path( dirname(__FILE__) ) . 'public/shortcodes/' . $file_name;
 		}
 
@@ -141,6 +158,7 @@ class Cs_Integration_Public {
 		}
 		
 	}
+
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
@@ -168,9 +186,10 @@ class Cs_Integration_Public {
 		 * wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/cs-integration-public.js', array( 'jquery' ), $this->version, false );
 		 */
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/cs-integration-public.js', array(), $this->version, false );
-
+		
 	}
-	
+
+
 	/**
 	 * Register a filter to add a 'cs-date' parameter in queries for the shortcodes to use
 	 *
@@ -180,5 +199,6 @@ class Cs_Integration_Public {
       $vars[] = "cs-date";
       return $vars;
     }
-
+    
+	
 }

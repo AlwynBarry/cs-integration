@@ -35,14 +35,12 @@ can display just the data you want for each part of your website.
 
 For the technical among you: This shortcode works on the 'server side',
 building the response which is delivered to your browser from churchsuite.
-Future updates will provide 'client side' javascript alternative shortcodes
-so that you can choose where the processing is done.
 
 
 ### Difference between this plugin and cs-js-integration
 
 We also provide the `cs-js-integration` plugin.  That plugin uses the more
-recent v3 ChurchSuite API which does permit such flexibility because it
+recent v3 ChurchSuite API which does not permit such flexibility because it
 requires you to create a ChurchSuite 'embed configuration' to pass in the
 shortcode call.  It also does all the work on the 'client side' so that
 the client browser holds the cached data and the client browser creates all

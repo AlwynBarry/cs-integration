@@ -32,6 +32,7 @@ can display just the data you want for each part of your website.
 
 
 == A little Technical information ==
+
 For the technical among you: This shortcode works on the 'server side',
 building the response which is delivered to your browser from churchsuite.
 
@@ -39,7 +40,7 @@ building the response which is delivered to your browser from churchsuite.
 = Difference between this plugin and cs-js-integration =
 
 We also provide the `cs-js-integration` plugin.  That plugin uses the more
-recent v3 ChurchSuite API which does permit such flexibility because it
+recent v3 ChurchSuite API which does not permit such flexibility because it
 requires you to create a ChurchSuite 'embed configuration' to pass in the
 shortcode call.  It also does all the work on the 'client side' so that
 the client browser holds the cached data and the client browser creates all
@@ -53,7 +54,6 @@ files without having to get into the php of the plugin. However, the
 Alpine.js code isn't straightforward and so this is likely to be of little
 advantage. Really, it's simply 'horses for courses' - you have the choice
 of which to use!
-
 
 
 == Support ==
