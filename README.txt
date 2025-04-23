@@ -2,7 +2,7 @@
 * Contributors: dramb
 * Tags: Events, ChurchSuite, Featured
 * Requires at least: 6.4
-* Tested up to: 6.7
+* Tested up to: 6.8
 * Stable tag: 1.0.3
 * License: GPLv2 or later
 
