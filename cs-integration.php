@@ -19,7 +19,7 @@ namespace amb_dev\CSI;
  * Plugin Name:       Integration for ChurchSuite
  * Plugin URI:        https://github.com/AlwynBarry/cs-integration
  * Description:       CS Integration provides shortcodes to request and display JSON data from the public JSON ChurchSuite feeds.
- * Version:           1.0.3
+ * Version:           1.0.4
  * Author:            Alwyn Barry
  * Author URI:        https://github.com/AlwynBarry/
  * License:           GPL-2.0+
