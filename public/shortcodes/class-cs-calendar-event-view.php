@@ -57,7 +57,7 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 	 * @since 1.0.0
 	 * @returns	string	The valid HTML to display a ChurchSuite Cs_Event instance
 	 */
-	 public function display() : string {
+	public function display() : string {
 		// Display the event wrapper, and include the event unique ID, the event
 		// status and the event category as classes to be styled, if these are set
         $output = '<div'
@@ -67,6 +67,13 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 					. ( ( $this->cs_event->is_category() ) ? ' ' . $this->cs_event->get_category_as_html_class() : '' )
 					. '">' . "\n";
 		
+		// Display the caret link to reveal the hidden event details
+		$output .= '<button class="cs-clickable-caret" aria-label="Open Modal" onclick="cs_revealEventDetails(this)">' . "\n"
+			. '  <svg width="16" height="16" viewBox="0 0 16 16">' . "\n"
+			. '    <path d="m 4,6 4,5 4,-5 z"/>' . "\n"
+			. '  </svg>' . "\n"
+			. '</button>' . "\n";
+
 		// Display the event time and the end time if provided
 		$event_time = '';
         if ( $this->cs_event->is_start_date() ) {
@@ -84,12 +91,14 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 					   '</div>' . "\n";
 		$output .= $event_name;
 		
-		// Display the '...' link to reveal the hidden event details
-		$output .= '<button class="cs-clickable-caret" aria-label="Open Modal" onclick="cs_revealEventDetails(this)">...</button>'  . "\n";
-		
 		// Display the 'hidden' event details to be shown when hovering over the event
 		$output .= '<div class="cs-event-hover-block">'  . "\n";
-		$output .= '<button class="cs-clickable-caret" aria-label="Close Modal" onclick="cs_hideEventDetails(this)">X</button>'  . "\n";
+		$output .= '<button class="cs-clickable-caret" aria-label="Close Modal" onclick="cs_hideEventDetails(this)">' . "\n"
+			. '  <svg fill="none" viewBox="0 0 16 16" height="16" width="16" stroke="currentColor">' . "\n"
+			. '    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m 3,3 l 10,10"/>' . "\n"
+			. '    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m 3,13 l 10,-10"/>' . "\n"
+			. '  </svg>' . "\n"
+			. '</button>'  . "\n";
 		$output .= $event_time . $event_name;
         $output .= ( $this->cs_event->is_location() ) ? '    <div class="cs-location"><span class="cs-location-gliph">' . $this->cs_event->get_location() . '</span></div>' . "\n" : '';
         $output .= ( $this->cs_event->is_address() ) ? '    <div class="cs-address">' . $this->cs_event->get_address() . '</div>' . "\n" :  '';

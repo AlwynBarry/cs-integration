@@ -72,10 +72,10 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	    $this->page_url = get_permalink();
 		$this->one_day = \DateInterval::createFromDateString( '1 day' );
 		$this->one_week = \DateInterval::createFromDateString( '1 week' );
-		$this->one_month = \DateInterval::createFromDateString( '1 month' );		
+		$this->one_month = \DateInterval::createFromDateString( '1 month' );
 		$this->today = new \DateTime();
 		$this->today->setTime( 0, 0 );
-		
+
 		// Set the requested base date.  This either comes from the page query
 		// or, if there is an error with the date supplied by the page query or
 		// no page query date, we check for a date_start attribute.  If the
@@ -153,7 +153,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	protected static function get_sunday_before_month( \DateTime $date ) : \DateTime {
 		return ( self::get_month_start( $date ) )->modify( 'last sunday' );
 	}
-	
+
 	/*
 	 * Returns the date of the Saturday after the first day in the month 
 	 *
@@ -164,7 +164,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	protected static function get_saturday_after_month( \DateTime $date ) : \DateTime {
 		return ( self::get_month_end( $date ) )->modify( 'next saturday' );
 	}
-	
+
 	/*
 	 * Returns the true if the date passed in is the month being requested 
 	 *
@@ -194,7 +194,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 */
 	protected function get_previous_month_link() : string {
 	    $date = ( clone $this->month_start )->sub( $this->one_month );
-	    return '<a href="' . $this->page_url . '/?cs-date=' . $date->format('Y-m-d') . '">' . __( 'Previous', 'cs-integration' ) . '</a>';
+	    return "'" . $this->page_url . '?cs-date=' . $date->format('Y-m-d') . "'";
 	}
 
 	/* 
@@ -204,7 +204,7 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 */
 	protected function get_next_month_link() : string {
 	    $date = ( clone $this->month_start )->add( $this->one_month );
-	    return '<a href="' . $this->page_url . '/?cs-date=' . $date->format('Y-m-d') . '">' . __( 'Next', 'cs-integration' ) . '</a>';
+	    return "'" . $this->page_url . '/?cs-date=' . $date->format('Y-m-d') . "'";
 	}
 
 	/*
@@ -216,15 +216,27 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 */
 	protected function get_month_table_top( \DateTime $date ) : string {
 		// Output the month header - the locale sensitive name of the month
-		$output = '<div class="cs-calendar-month-header">' . $date->format( 'F' ) . '</div>' . "\n"
-		        . '<div class="cs-calendar-month-nav">'
-		        . '  <span class="cs-calendar-previous-link">'. $this->get_previous_month_link() . '</span>'
-		        . '  <span class="cs-calendar-next-link">'. $this->get_next_month_link() . '</span>'
-		        . '</div>' . "\n"
-		        . '<div class="cs-calendar-table">' . "\n"
-		        . '  <table class="cs-responsive-table">' . "\n"
-		        . '    <thead>' . "\n"
-		        . '      <tr class="cs-calendar-days-header">' . "\n";
+		$output = '<div class="cs-calendar">' . "\n"
+			. '  <div class="cs-calendar-responsive-grid">' . "\n"
+			. '    <div class="cs-calendar-month-header">' . "\n"
+			. '      <div class="cs-calendar-month-title">' . "\n"
+			. '        ' .  $date->format( 'F' ) . ' ' .  $date->format( 'Y' ) . "\n"
+			. '      </div>' . "\n"
+		        . '      <div class="cs-calendar-month-nav">' . "\n"
+			. '        <button type="button" class="cs-calendar-previous-link" onclick="window.location.href=' . $this->get_previous_month_link() . '">' . "\n"
+                        . '          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">' . "\n"
+                        . '            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>' . "\n"
+                        . '          </svg>' . "\n"
+                        . '        </button>' . "\n"
+			. '        <button type="button" class="cs-calendar-next-link" onclick="window.location.href=' . $this->get_next_month_link() . '">' . "\n"
+                        . '          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">' . "\n"
+                        . '            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>' . "\n"
+                        . '          </svg>' . "\n"
+                        . '        </button>' . "\n"
+		        . '      </div>' . "\n"
+			. '    </div>' . "\n"
+		        . '    <div class="cs-calendar-days-grid">' . "\n"
+			. '      <div class="cs-calendar-day-name-header">' . "\n";
 		
 		// Add the day headers for the table using the week within which is the supplied date
 		// Doing this computationally ensures that we have localised day names produced.
@@ -233,13 +245,15 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 		$saturday_date->add( $this->one_week );
 		$period = new \DatePeriod( $sunday_date, $this->one_day, $saturday_date );
 		foreach ( $period as $day ) {
-			$output .= '        <th class="cs-day-header">' . $day->format( 'D' ) . '</th>' . "\n";
+			$output .= '        <div class="cs-calendar-day-name-cell">' . $day->format( 'D' ) . '</div>' . "\n";
 		}
 
 		// Output the end of the table row and header
-		$output .= '      </tr>' . "\n"
-		         . '    </thead>'. "\n";
-        return $output;
+		$output .= '      </div>' . "\n"
+
+		         . '    </div>' . "\n"
+			 . '    <div class="cs-calendar-days">' . "\n";
+	        return $output;
 	}
 
 	/*
@@ -249,9 +263,9 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 * @return	\string				a string that gives the top of the month table
 	 */
 	protected function get_month_table_bottom() : string {
-		$output = '    </tbody>' . "\n";
-		$output .= '  </table>' . "\n";
-		$output .= '</div>' . "\n";
+		$output = '    </div>' . "\n"
+			. '  </div>' . "\n"
+			. '</div>' . "\n";
 		return $output;
 	}
 
@@ -263,21 +277,21 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 */
 	protected function get_day_top( \DateTime $date, bool $in_month, bool $is_today ) : string {
 		// Output the start of the table cell to display one day in the calendar
-		$output = '<td class="cs-calendar-date-cell'
+		$output = '<div class="cs-calendar-date-cell'
 		                . ( ( $in_month ) ? ' cs-calendar-in-month' : ' cs-calendar-outside-month' )
 		                . ( ( $is_today ) ? ' cs-calendar-today' : '' )
 		                . '">' . "\n";
+		$output .= '  <div class="cs-day-content">' . "\n";
 		// Output the date.  Many of these fields are not displayed, but it allows styling choices
 		$day = (int) $date->format( 'j' );
-	    $output .= '<div class="cs-date' . ( ( $day === 1 ) ? ' cs-first-day' : '' ) . '">';
-		$output .= '<span class="cs-day">' . $date->format( 'D' ) . '</span>';
-		$output .= '<span class="cs-date-number">' . $day . '</span>';
-		$output .= '<span class="cs-month">' . $date->format( 'F' ) . '</span>';
-		$output .= '<span class="cs-year">' . $date->format( 'Y' ) . '</span>';
-		$output .= '</div>';
+	   	$output .= '    <div class="cs-date' . ( ( $day === 1 ) ? ' cs-first-day' : '' ) . '">' . "\n";
+		$output .= '      <span class="cs-day">' . $date->format( 'D' ) . '</span>' . "\n";
+		$output .= '      <span class="cs-date-number">' . $day . '</span>' . "\n";
+		$output .= '      <span class="cs-month">' . $date->format( 'F' ) . '</span>' . "\n";
+		$output .= '      <span class="cs-year">' . $date->format( 'Y' ) . '</span>' . "\n";
+		$output .= '    </div>';
 		// Output the start of the  div containing the details of the events on this date
 		$output .= '	<div class="cs-calendar-date-cell-inner">' . "\n";
-		$output .= '		<div class="cs-day-content">' . "\n";
 		return $output;
 	}
 
@@ -288,9 +302,9 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	 * @return	\string				a string that gives the bottom of a day cell
 	 */
 	protected function get_day_bottom() : string {
-		$output = '		    </div>' . "\n";
-		$output .= '	</div>' . "\n";
-		$output .= '</td>' . "\n";
+		$output = '    </div>' . "\n";
+		$output .= '  </div>' . "\n";
+		$output .= '</div>' . "\n";
 		return $output;
 	}
 
@@ -307,12 +321,11 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 	protected function get_HTML_response( array $JSON_response ) : string {
 		$output = '';
 		if ( ! is_null( $JSON_response ) ) {
-			$output = '<div class="cs-calendar">' . "\n";
 			$output .= $this->get_month_table_top( $this->requested_date );
 			$day_count = 0;
 			$date = clone $this->date_from;
 			// Output the start of the first row of the table, for the first week
-			$output .= '<tr class="cs-calendar-row">' . "\n";
+			// $output .= '<div class="cs-calendar-row">' . "\n";
 			$output .= self::get_day_top( $date, $this->is_date_in_month( $date ), $this->is_date_today( $date ) );
 			// Iterate over all events in the month; If none, the later loop will print out the blank month
 			foreach ( $JSON_response as $event_obj ) {
@@ -324,8 +337,6 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 					$output .= $this->get_day_bottom();
 					$date->add( $this->one_day );
 					$day_count++;
-					// Output a new row for each new week
-					$output .= ( ( $day_count % 7 ) == 0 ) ? '</tr>' . "\n" . '<tr class="cs-calendar-row">' . "\n" : '';
 					$output .= self::get_day_top( $date, $this->is_date_in_month( $date ), $this->is_date_today( $date ) );
 				}
 				// We should now be in the date of the event, but check just in case
@@ -340,21 +351,14 @@ use amb_dev\CSI\Cs_Calendar_Event_View as Cs_Calendar_Event_View;
 			$output .= $this->get_day_bottom();
 			$date->add( $this->one_day );
 			$day_count++;
-			$output .= ( ( $day_count % 7 ) == 0 ) ? '</tr>' . "\n" . '<tr class="cs-calendar-row">' . "\n" : '';
 			// Fill in any empty dates after the final event
 			while ( $date <= $this->date_to ) {
 				// Output a new cell for each new day
 				$output .= self::get_day_top( $date, $this->is_date_in_month( $date ), $this->is_date_today( $date ) );
 				$date->add( $this->one_day );
 				$day_count++;
-				// Output a new row for each new week
-				if ( ( $day_count % 7 ) == 0 ) {
-					$output .= '</tr>' . "\n";
-					if ( $date <= $this->date_to ) { $output .= '<tr  class="cs-calendar-row">' . "\n"; }
-				}
 			}
 			$output .= $this->get_month_table_bottom();
-			$output .= '</div>' . "\n";
 		}
 		// Return the HTML response
 		return $output;
