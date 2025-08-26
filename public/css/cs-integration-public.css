@@ -212,8 +212,7 @@ div.cs-calendar-event div.cs-address {
 
 div.cs-calendar {
     background-color: white;
-    border-radius: 15px;
-    border: 1px solid var(--csjs-border-lighter-color);
+	border: none;
 }
 
 div.cs-calendar-month-header {
@@ -222,13 +221,18 @@ div.cs-calendar-month-header {
     justify-content: space-between;
     padding: 0.5rem 1.5rem;
     font-size: 2rem;
+	border: 1px solid var(--cs-border-lighter-color);
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	border-bottom: none;
 }
 
 div.cs-calendar-month-nav {}
 
 div.cs-calendar-month-nav button {
     border-radius: 0.5rem;
-    border: 1px solid var(--csjs-border-lighter-color);
+    border: 1px solid var(--cs-border-lighter-color);
+	background-color: var(--cs-light-grey-background-color);
     padding: 0.25rem;
     align-items: center;
     overflow: visible;
@@ -236,7 +240,7 @@ div.cs-calendar-month-nav button {
 }
 
 div.cs-calendar-month-nav button svg {
-    color: var(--csjs-text-lighter-color);
+    color: var(--cs-text-color);
     width: 1.5rem;
     height: 1.5rem;
 }
@@ -253,7 +257,7 @@ div.cs-calendar-days {
 
 div.cs-calendar-day-name-cell,
 div.cs-calendar-date-cell {
-    width: 14.1%;
+    width: 14.285%;
     border: 1px solid var(--cs-border-lighter-color);
     border-right: 0px transparent;
     border-bottom: 0px transparent;
@@ -272,10 +276,14 @@ div.cs-calendar-day-name-cell {
     overflow: hidden;
 }
 
-div.cs-calendar-day-name-header:last-child,
-div.cs-calendar-days:nth-child(7) {
+div.cs-calendar-day-name-cell:nth-child(7),
+div.cs-calendar-date-cell:nth-child(7n){
     border-right: 1px solid var(--cs-border-lighter-color);
-}    
+}
+
+div.cs-calendar-date-cell:nth-last-child(-n+7){
+    border-bottom: 1px solid var(--cs-border-lighter-color);
+}
 
 div.cs-calendar-date-cell {
     min-height: 5rem;
@@ -333,12 +341,15 @@ div.cs-calendar-event.cs-calendar-category-2 {
     color: var(--cs-category-2-color);
 }
 
-/* == */
-
 div.cs-calendar-event .cs-event-hover-block {
-    display: none;
+	position: absolute;
+	padding: 1rem;
+	border: 1px solid var(--cs-border-darker-color);
+	width: 280px;
     background-color: var(--cs-background-color);
     box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+	overflow: hidden;
+	display: none;
 }
 
 div.cs-calendar-event button.cs-clickable-caret{
@@ -347,6 +358,9 @@ div.cs-calendar-event button.cs-clickable-caret{
 	border: none;
 	font-size: 1rem;
 	color: var(--cs-text-color);
+	width: 16px; height: 16px;
+	padding: 0;
+	margin: 0 0 0 5px;
 }
 
 div.cs-calendar-event .cs-event-hover-block button.cs-clickable-caret {
@@ -355,26 +369,22 @@ div.cs-calendar-event .cs-event-hover-block button.cs-clickable-caret {
 	background-color: var(--cs-light-grey-background-color);
 	border: 1px solid var(--cs-border-lighter-color);
 	border-radius: 3px;
-	font-size: 0.7rem;
+	width: 24px; height: 24px;
 }
 
 div.cs-calendar-event .cs-event-hover-block.cs-event-hover-reveal {
-	position: absolute;
-	padding: 1rem;
-	border: 1px solid var(--cs-border-darker-color);
-	width: 280px;
-	overflow: hidden;
 	display: block;
 	z-index: 1;
 	left: auto;
 	right: 0rem;
 }
 
-div.cs-calendar-table div.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(1) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal,
-div.cs-calendar-table div.cs-responsive-table tbody tr.cs-calendar-row td:nth-child(2) div.cs-calendar-event div.cs-event-hover-block.cs-event-hover-reveal {
+div.cs-calendar-date-cell:nth-child(7n+1) div.cs-calendar-event .cs-event-hover-block,
+div.cs-calendar-date-cell:nth-child(7n+2) div.cs-calendar-event .cs-event-hover-block,
+div.cs-calendar-date-cell:nth-child(7n+3) div.cs-calendar-event .cs-event-hover-block {
 	left: 1rem;
 	right: auto;
-} 
+}
 
 div.cs-calendar-event .cs-event-hover-block .cs-location {
 	margin: 0.7rem 0 0 0;
@@ -396,6 +406,7 @@ div.cs-calendar-event .cs-event-hover-block .cs-description p {
 	font-size: 0.8rem;
 }
 
+
 @media screen and (max-width: 700px) {  
 
     div.cs-calendar {
@@ -404,10 +415,14 @@ div.cs-calendar-event .cs-event-hover-block .cs-description p {
         background-color: transparent;
     }
 
+	div.cs-calendar-month-header {
+		border: none;
+	}
+
     div.cs-calendar div.cs-calendar-day-name-cell {
-	visibility: hidden;
-	height: 0;
-	position: absolute;
+	    visibility: hidden;
+	    height: 0;
+	    position: absolute;
     }
 	
     div.cs-calendar div.cs-calendar-days {
@@ -422,7 +437,7 @@ div.cs-calendar-event .cs-event-hover-block .cs-description p {
     div.cs-calendar div.cs-calendar-date-cell div.cs-day-content {
         display: flex;
         flex-direction: row;
-	width: 100%;
+	    width: 100%;
     }
 
     div.cs-calendar div.cs-calendar-date-cell.cs-calendar-before {
@@ -446,6 +461,7 @@ div.cs-calendar-event .cs-event-hover-block .cs-description p {
     }
 
     div.cs-calendar-date-cell div.cs-event-hover-block.cs-event-hover-reveal,
+    div.cs-calendar-date-cell:nth-child(7n+1) div.cs-calendar-event .cs-event-hover-block,
     div.cs-calendar-date-cell:nth-child(7n+2) div.cs-calendar-event .cs-event-hover-block,
     div.cs-calendar-date-cell:nth-child(7n+3) div.cs-calendar-event .cs-event-hover-block {
         left: auto;
