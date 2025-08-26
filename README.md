@@ -201,6 +201,8 @@ The output is formatted via css - just override the defaults in your theme
 
 ## Changelog
 
+### 1.0.4
+
 **2025-08-26**
 * Change to the Calendar display to use DIVs rather than responsive tables
    to be compatible with the JS version of the plugin and enable better styling

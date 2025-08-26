@@ -201,6 +201,8 @@ file in the top comment.
 
 == Changelog ==
 
+= 1.0.4 =
+
 **2025-08-26**
 * Change to the Calendar display to use DIVs rather than responsive tables
    to be compatible with the JS version of the plugin and enable better styling
