@@ -3,7 +3,7 @@
 * Tags: Events, ChurchSuite, Featured
 * Requires at least: 6.4
 * Tested up to: 6.8
-* Stable tag: 1.0.3
+* Stable tag: 1.0.4
 * License: GPLv2 or later
 
 Integration for ChurchSuite is a plugin to enable display of data from ChurchSuite JSON feeds
@@ -200,6 +200,10 @@ The output is formatted via css - just override the defaults in your theme
 
 
 ## Changelog
+
+**2025-08-26**
+* Change to the Calendar display to use DIVs rather than responsive tables
+   to be compatible with the JS version of the plugin and enable better styling
 
 **2025-03-17**
 * Change to the README files to make them more readable on the Wordpress
