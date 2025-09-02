@@ -86,7 +86,7 @@ function cs_hideEventDetails(obj) {
 		cs_removeClass(parent, "cs-event-hover-reveal");
 		parent = parent.parentNode; /* Fetch the 'cs-calendar-event' div which contains the event these details belong to */
 		/* Take the focus back to the parent to help screen-readers */
-		if (parent !== null) { parent[0].focus(); }
+		if (parent !== null) { parent.focus(); }
 	}
 }
 
