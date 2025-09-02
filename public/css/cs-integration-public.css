@@ -15,12 +15,12 @@
 	--cs-border-lighter-color: #e0e0e0;
 	--cs-light-grey-background-color: #f3f3f3;
 	--cs-today-background-color: #ffffef;
-	--csjs-category-1-color: #3a76ca;
-	--csjs-category-2-color: #3aca76;
+	--cs-category-1-color: #3a76ca;
+	--cs-category-2-color: #539127;
 }
 
 .cancelled {
-	color: var(--csjs-text-lightest-color);
+	color: var(--cs-text-lightest-color);
 }
 
 .cancelled div.cs-event-name {
@@ -350,11 +350,13 @@ div.cs-calendar-event div.cs-event-name {
     margin: 0.2rem 0 0 0;
 }
 
-div.cs-calendar-event.cs-calendar-category-1 {
+div.cs-calendar-event.cs-calendar-category-1 a.cs-event-link,
+div.cs-calendar-event.cs-public  a.cs-event-link {
     color: var(--cs-category-1-color);
 }
 
-div.cs-calendar-event.cs-calendar-category-2 {
+div.cs-calendar-event.cs-calendar-category-2 a.cs-event-link,
+div.cs-calendar-event.cs-churchwide a.cs-event-link {
     color: var(--cs-category-2-color);
 }
 
