@@ -100,9 +100,8 @@ div.cs-group-name {
 div.cs-date { /* no formatting at present */ }
 
 span.cs-date-gliph::before {
-	content: "\e800";
-	font-family: "glyphs";
-	font-size: 0.9rem;
+	content: "\f133";
+	font-family: "FontAwesome";
 	padding-right: 0.5rem;
 	color: var(--cs-gliph-color);
 }
@@ -110,9 +109,8 @@ span.cs-date-gliph::before {
 div.cs-time { /* no formatting at present */ }
 
 span.cs-time-gliph::before {
-	content: "\e802";
-	font-family: "glyphs";
-	font-size: 0.9rem;
+	content: "\f017";
+	font-family: "FontAwesome";
 	padding-right: 0.5rem;
 	color: var(--cs-gliph-color);
 }
@@ -120,11 +118,17 @@ span.cs-time-gliph::before {
 div.cs-location { /* no formatting at present */ }
 
 span.cs-location-gliph::before {
-	content: "\e801";
-	font-family: "glyphs";
-	font-size: 0.9rem;
+	content: "\f041";
+	font-family: "FontAwesome";
 	padding-right: 0.7rem;
 	color: var(--cs-gliph-color);
+/*
+  display: inline-flex;
+  content: url('../../assets/location.svg');
+  color: var(--cs-gliph-color);
+  height: 16px;
+  width: 1.5rem;
+*/
 }
 
 div.cs-address,

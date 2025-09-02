@@ -69,8 +69,8 @@ use amb_dev\CSI\Cs_Event as Cs_Event;
 		
 		// Display the caret link to reveal the hidden event details
 		$output .= '<button class="cs-clickable-caret" aria-label="Open Modal" onclick="cs_revealEventDetails(this)">' . "\n"
-			. '  <svg width="16" height="16" viewBox="0 0 16 16">' . "\n"
-			. '    <path d="m 4,6 4,5 4,-5 z"/>' . "\n"
+			. '  <svg fill="none" viewBox="0 0 16 16" height="16" width="16" stroke="currentColor">' . "\n"
+			. '    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.4 4.5a1 1 0 0 0-.8.6 1 1 0 0 0 .2 1.2l4.5 5c.4.4 1 .4 1.4 0l4.5-5c.3-.3.4-.7.2-1a1 1 0 0 0-.8-.7z" fill="#000" style="stroke-width: 1;"/>' . "\n"
 			. '  </svg>' . "\n"
 			. '</button>' . "\n";
 

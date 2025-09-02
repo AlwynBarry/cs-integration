@@ -3,7 +3,7 @@
 * Tags: Events, ChurchSuite, Featured
 * Requires at least: 6.4
 * Tested up to: 6.8
-* Stable tag: 1.0.4
+* Stable tag: 1.0.5
 * License: GPLv2 or later
 
 Integration for ChurchSuite is a plugin to enable display of data from ChurchSuite JSON feeds
@@ -200,6 +200,13 @@ file in the top comment.
 
 
 == Changelog ==
+
+= 1.0.5 =
+
+**2025-09-02**
+* Remove FontAwesome and replace with a subset of FontAwesome to reduce the
+	size of the plugin.  Modify the CSS to reflect this. Correct missing css
+	elements to do with cancelled events.
 
 = 1.0.4 =
 

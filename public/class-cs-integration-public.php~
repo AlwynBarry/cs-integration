@@ -168,14 +168,6 @@ class Cs_Integration_Public {
 	 */
 	public function enqueue_styles() {
 
-		/*
-		 * Enqueue the fontawesome free font for the glyphs we use
-		 */
-		wp_enqueue_style( 'cs-glyphs-css', plugin_dir_url( __FILE__ ) . '../fonts/glyphs/css/glyphs.css', array(), $this->version, 'all' );
-
-		/*
-		 * Enqueue the style sheet for the public display of the shortcodes
-		 */
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cs-integration-public.css', array(), $this->version, 'all' );
 
 	}
